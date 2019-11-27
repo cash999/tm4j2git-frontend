@@ -18,6 +18,7 @@
         name="tm4jSourceProject"
         @input="$v.tm4jSourceProject.$touch()"
         v-model="tm4jSourceProject">
+        <option value="">-- Select the JIRA project --</option>
         <option v-for="tm4jProject in tm4jProjects">
           {{ tm4jProject }}
         </option>
@@ -33,6 +34,7 @@
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetProject">
         //v-on:focus="getGitProjects"
+        <option value="">-- Select the GIT project --</option>
         <option v-for="gitProject in gitProjects">
           {{ gitProject }}
         </option>
@@ -47,6 +49,7 @@
         v-on:focus="getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
+        <option value="">-- Select the GIT repository --</option>
         <option v-for="gitRepo in gitRepos">
           {{ gitRepo }}
         </option>
@@ -70,12 +73,11 @@
 <script>
     import axios from 'axios';
     import {required} from 'vuelidate/lib/validators';
+    import {authHeader} from '../authentication/auth-header';
 
     export default {
         data() {
             return {
-                user: '',
-                password: '',
                 syncTitle: '',
                 tm4jProjects: [],
                 tm4jSourceProject: '',
@@ -111,11 +113,10 @@
             getTm4Projects() {
                 axios.get('/sync/getTm4jProjects',
                     {
-                        params: {
-                            user: this.user,
-                            password: this.password,
-                            json: true,
-                        }
+                      headers: authHeader(),
+                      params: {
+                        json: true
+                      }
                     })
                     .then(response => {
                         if (response.status === 200) {
@@ -130,11 +131,10 @@
             getGitProjects() {
                 axios.get('/sync/getGitProjects',
                     {
-                        params: {
-                            user: this.user,
-                            password: this.password,
-                            json: true,
-                        }
+                      headers: authHeader(),
+                      params: {
+                        json: true
+                      }
                     })
                     .then(response => {
                         if (response.status === 200) {
@@ -148,12 +148,11 @@
             getGitRepos() {
                 axios.get('/sync/getGitRepos',
                     {
-                        params: {
-                            user: this.user,
-                            password: this.password,
-                            gitProject: this.gitTargetProject,
-                            json: true
-                        }
+                      headers: authHeader(),
+                      params: {
+                        gitProject: this.gitTargetProject,
+                        json: true
+                      }
                     })
                     .then(response => {
                         if (response.status === 200) {

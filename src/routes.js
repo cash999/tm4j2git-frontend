@@ -11,11 +11,28 @@ export const routes = [
   { path: '', components: {
       default: Home,
       'header-top': Header
-  } },
+    } },
   { path: '/login', name: 'Login', component: Login  },
   { path: '/addSync', component: AddSync  },
   { path: '/mySync', mySync: 'MySync', component: MySync  },
-  { path: '/admin', component: Admin  },
-  { path: '/logout', redirect: '/' },
+  {
+    path: '/admin',
+    component: Admin,
+    beforeEnter (to, from, next) {
+      let userData = JSON.parse(localStorage.getItem('userData'));
+      if (userData.isAdmin) {
+        next()
+      } else {
+        next('/mySync')
+      }
+    }
+  },
+  {
+    path: '/logout',
+    beforeEnter (to, from, next) {
+      localStorage.clear();
+      next('/login')
+    }
+  },
   { path: '*', redirect: '/' }
 ];

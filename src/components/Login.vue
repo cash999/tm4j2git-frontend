@@ -58,7 +58,8 @@
                     })
                     .then(response => {
                         const status = response.status;
-                        console.log(response.status);
+                        //save userData token in local storage
+                        localStorage.setItem('userData', JSON.stringify(response.data));
                          //redirect logic
                         if (status === 200) {
                             self.$router.push('/mysync');
