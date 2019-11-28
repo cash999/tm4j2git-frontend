@@ -113,14 +113,10 @@
             getTm4Projects() {
                 axios.get('/sync/getTm4jProjects',
                     {
-                      headers: authHeader(),
-                      params: {
-                        json: true
-                      }
+                      headers: authHeader()
                     })
                     .then(response => {
                         if (response.status === 200) {
-                            console.log(response.status);
                             this.tm4jProjects = response.data.tm4jProjects;
                         }
                     })
@@ -131,10 +127,7 @@
             getGitProjects() {
                 axios.get('/sync/getGitProjects',
                     {
-                      headers: authHeader(),
-                      params: {
-                        json: true
-                      }
+                      headers: authHeader()
                     })
                     .then(response => {
                         if (response.status === 200) {

@@ -51,15 +51,10 @@
             getMySync() {
                 axios.get('/sync/getMySync',
                     {
-                        headers: authHeader(),
-                        params: {
-                            json: true
-                        }
+                        headers: authHeader()
                     })
                     .then(response => {
                         if (response.status === 200) {
-                            console.log(response.status);
-                            console.log(response.data.autoSyncData);
                             this.mysyncs = response.data.autoSyncData;
                         }
                     })

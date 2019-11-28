@@ -31,7 +31,7 @@ export const routes = [
     path: '/logout',
     beforeEnter (to, from, next) {
       localStorage.clear();
-      next('/login')
+      next('/')
     }
   },
   { path: '*', redirect: '/' }
