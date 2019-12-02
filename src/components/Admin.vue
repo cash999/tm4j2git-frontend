@@ -1,25 +1,15 @@
-<!--<template>-->
-<!--    <div>-->
-<!--        <h1>This is the admin page</h1>-->
-<!--        <hr>-->
-<!--        <button @click="navigateToLogin" class="btn btn-primary">Go to Login</button>-->
-<!--        <hr>-->
-<!--        <router-view></router-view>-->
-<!--    </div>-->
-<!--</template>-->
-
 <template>
-  <form @submit.prevent="onSubmit">
-    <div class="form-group">
+  <div class="container">
+    <div>
       <label for="setAdministrator">Administrators</label>
       <select
         class="form-control"
         type="text"
         id="setAdministrator"
         name="setAdministrator"
-        size=3>
-<!--        @input="$v.administrators.$touch()"-->
-<!--        v-model="administrators">-->
+        size=4>
+  <!--      @input="$v.administrators.$touch()"-->
+  <!--      v-model="administrators">-->
         <option v-for="administrator in administrators">
           {{ administrator.adminUser }}
         </option>
@@ -28,16 +18,18 @@
     <div>
       <p data-placement="top"
          data-toggle="tooltip"
-         title="removeAdminUser">
-        <button v-on:click="removeAdminUser"
-                class="btn btn-primary btn-xs"
-                data-title="removeAdminUser"
-                data-toggle="modal"
-                data-target="#removeAdminUser" >Remove selected Admin User
-        </button>
+         title="Remove Admin User">
+          <button v-on:click="removeAdminUser"
+                  type="submit"
+                  formaction="removeAdmin"
+                  class="btn btn-primary btn-xs"
+                  data-title="removeAdminUser"
+                  data-toggle="modal"
+                  data-target="#removeAdminUser" >Remove selected Admin User
+          </button>
       </p>
     </div>
-    <div class="form-group">
+    <div>
       <label for="addAdministrator">Add a new administrator by account:</label>
       <input
         class="form-control"
@@ -50,15 +42,18 @@
     <div>
       <p data-placement="top"
          data-toggle="tooltip"
-         title="AddAdminUser">
-        <button class="btn btn-primary btn-xs"
+         title="Add Admin User">
+        <button v-on:click="addAdminUser"
+                type="submit"
+                formaction="addAdmin"
+                class="btn btn-primary btn-xs"
                 data-title="addAdminUser"
                 data-toggle="modal"
                 data-target="#addAdminUser" >Add Admin User
         </button>
       </p>
     </div>
-    <div class="form-group">
+    <div>
       <label for="syncInterval">Set Sync Interval:</label>
       <select
         class="form-control"
@@ -72,7 +67,7 @@
         </option>
       </select>
     </div>
-    <div class="form-group">
+    <div>
       <label for="syncLogHoldTime">Set hold time for Sync logs:</label>
       <select
         class="form-control"
@@ -85,7 +80,7 @@
         </option>
       </select>
     </div>
-    <div class="form-group">
+    <div>
       <label for="errorLogHoldTime">Set hold time for Error logs:</label>
       <select
         class="form-control"
@@ -98,7 +93,7 @@
         </option>
       </select>
     </div>
-    <div class="form-group">
+    <div>
       <label for="userNameSA">Set username for service account:</label>
       <input
         class="form-control"
@@ -108,7 +103,7 @@
         @input="$v.userNameSA.$touch()"
         v-model="userNameSA">
     </div>
-    <div class="form-group">
+    <div>
       <label for="passwordSA">Set password for service account:</label>
       <input
         class="form-control"
@@ -118,7 +113,7 @@
         @input="$v.passwordSA.$touch()"
         v-model="passwordSA">
     </div>
-    <div class="form-group">
+    <div>
       <label for="privateSSHKey">Set private SSH key for GIT repository:</label>
       <textarea
         class="form-control"
@@ -129,7 +124,7 @@
         v-model="privateSSHKey">
         </textarea>
     </div>
-    <div class="form-group">
+    <div>
       <label for="publicSSHKey">Set public SSH key for GIT repository:</label>
       <textarea
         class="form-control"
@@ -138,9 +133,9 @@
         rows=5
         @input="$v.publicSSHKey.$touch()"
         v-model="publicSSHKey">
-        </textarea>
+      </textarea>
     </div>
-    <div class="form-group">
+    <div>
       <label for="JiraBaseURL">Set base URL for JIRA/TM4J server:</label>
       <input
         class="form-control"
@@ -150,7 +145,7 @@
         @input="$v.jiraBaseURL.$touch()"
         v-model="jiraBaseURL">
     </div>
-    <div class="form-group">
+    <div>
       <label for="GitBaseUrl">Set base URL for GIT server:</label>
       <input
         class="form-control"
@@ -160,9 +155,21 @@
         @input="$v.gitBaseUrl.$touch()"
         v-model="gitBaseUrl">
     </div>
-    <br>
-    <button class="btn btn-primary" type=submit>Save</button>
-  </form>
+    <div>
+      <p data-placement="top"
+         data-toggle="tooltip"
+         title="Save Admin Settings">
+        <button v-on:click="onSubmit"
+                type="submit"
+                formaction="saveAdminSettings"
+                class="btn btn-primary btn-xs"
+                data-title="saveAdminSettings"
+                data-toggle="modal"
+                data-target="#saveAdminSettings" >Save
+        </button>
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -184,7 +191,7 @@
         passwordSA: '',
         privateSSHKey: '',
         publicSSHKey: '',
-        jiraBaseURL: '',
+        jiraBaseURL: 'http://jira.swisscom.com',
         gitBaseUrl: ''
       }
     },
@@ -202,6 +209,7 @@
       this.getJiraBaseURL();
       this.getGitBaseURL();
       this.removeAdminUser();
+      this.addAdminUser();
     },
     methods: {
       getAdministrators() {
@@ -211,6 +219,7 @@
           })
           .then(response => {
             if (response.status === 200) {
+              console.log(response.data);
               this.administrators = response.data;
             }
           })
@@ -345,11 +354,15 @@
           })
       },
       removeAdminUser() {
-        console.log("removeAdminUser");
-        console.log(setAdministrator.value);
+        this.administrators.splice( this.administrators.indexOf({adminUser: addAdministrator.value}), 1 );
+      },
+      addAdminUser() {
+        this.administrators.push({adminUser: addAdministrator.value});
+        this.addAdministrator = '';
       },
       onSubmit() {
         let self = this;
+        console.log(this.administrators.length);
         axios.post('/admin/saveAdminSettings',
           {
               adminUsers: this.administrators,
