@@ -4,12 +4,9 @@
       <label for="setAdministrator">Administrators</label>
       <select
         class="form-control"
-        type="text"
         id="setAdministrator"
-        name="setAdministrator"
-        size=4>
-  <!--      @input="$v.administrators.$touch()"-->
-  <!--      v-model="administrators">-->
+        size=3
+        v-model="setAdministrator">
         <option v-for="administrator in administrators">
           {{ administrator.adminUser }}
         </option>
@@ -30,13 +27,10 @@
       </p>
     </div>
     <div>
-      <label for="addAdministrator">Add a new administrator by account:</label>
+      <label for="addAdministratorw">Add a new administrator by account:</label>
       <input
         class="form-control"
-        type="text"
-        id="addAdministrator"
-        name="addAdministrator"
-        @input="$v.addAdministrator.$touch()"
+        id="addAdministratorw"
         v-model="addAdministrator">
     </div>
     <div>
@@ -58,8 +52,6 @@
       <select
         class="form-control"
         id="syncInterval"
-        name="syncInterval"
-        @input="$v.setSyncInterval.$touch()"
         v-model="setSyncInterval">
         <option
           v-for="syncInterval in syncIntervals" :selected="syncInterval === setSyncInterval">
@@ -72,8 +64,6 @@
       <select
         class="form-control"
         id="syncLogHoldTime"
-        name="syncLogHoldTime"
-        @input="$v.setSyncLogHoldTime.$touch()"
         v-model="setSyncLogHoldTime">
         <option v-for="syncLogHoldTime in syncLogHoldTimes" :selected="syncLogHoldTime === setSyncLogHoldTime">
           {{ syncLogHoldTime }}
@@ -85,8 +75,6 @@
       <select
         class="form-control"
         id="errorLogHoldTime"
-        name="errorLogHoldTime"
-        @input="$v.setErrorLogHoldTime.$touch()"
         v-model="setErrorLogHoldTime">
         <option v-for="errorLogHoldTime in errorLogHoldTimes" :selected="errorLogHoldTime === setErrorLogHoldTime">
           {{ errorLogHoldTime }}
@@ -97,10 +85,7 @@
       <label for="userNameSA">Set username for service account:</label>
       <input
         class="form-control"
-        type="text"
         id="userNameSA"
-        name="userNameSA"
-        @input="$v.userNameSA.$touch()"
         v-model="userNameSA">
     </div>
     <div>
@@ -109,8 +94,6 @@
         class="form-control"
         type="password"
         id="passwordSA"
-        name="passwordSA"
-        @input="$v.passwordSA.$touch()"
         v-model="passwordSA">
     </div>
     <div>
@@ -118,9 +101,7 @@
       <textarea
         class="form-control"
         id="privateSSHKey"
-        name="privateSSHKey"
         rows=10
-        @input="$v.privateSSHKey.$touch()"
         v-model="privateSSHKey">
         </textarea>
     </div>
@@ -129,9 +110,7 @@
       <textarea
         class="form-control"
         id="publicSSHKey"
-        name="publicSSHKey"
         rows=5
-        @input="$v.publicSSHKey.$touch()"
         v-model="publicSSHKey">
       </textarea>
     </div>
@@ -139,20 +118,14 @@
       <label for="JiraBaseURL">Set base URL for JIRA/TM4J server:</label>
       <input
         class="form-control"
-        type="text"
         id="JiraBaseURL"
-        name="JiraBaseURL"
-        @input="$v.jiraBaseURL.$touch()"
         v-model="jiraBaseURL">
     </div>
     <div>
       <label for="GitBaseUrl">Set base URL for GIT server:</label>
       <input
         class="form-control"
-        type="text"
         id="GitBaseUrl"
-        name="GitBaseUrl"
-        @input="$v.gitBaseUrl.$touch()"
         v-model="gitBaseUrl">
     </div>
     <div>
@@ -191,7 +164,7 @@
         passwordSA: '',
         privateSSHKey: '',
         publicSSHKey: '',
-        jiraBaseURL: 'http://jira.swisscom.com',
+        jiraBaseURL: 'https://jira.swisscom.com',
         gitBaseUrl: ''
       }
     },
@@ -354,10 +327,13 @@
           })
       },
       removeAdminUser() {
-        this.administrators.splice( this.administrators.indexOf({adminUser: addAdministrator.value}), 1 );
+        //this.administrators.splice( this.administrators.indexOf({adminUser: addAdministrator.value}), 1 );
+        this.administrators.splice( this.administrators.indexOf({adminUser: this.setAdministrator}), 1 );
+
       },
       addAdminUser() {
-        this.administrators.push({adminUser: addAdministrator.value});
+        //this.administrators.push({adminUser: addAdministrator.value});
+        this.administrators.push({adminUser: this.addAdministrator});
         this.addAdministrator = '';
       },
       onSubmit() {

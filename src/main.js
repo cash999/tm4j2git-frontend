@@ -4,6 +4,7 @@ import App from './App.vue';
 import { routes } from './routes';
 import axios from 'axios';
 import Vuelidate from 'vuelidate/';
+export const bus = new Vue();
 
 axios.defaults.baseURL ='http://localhost:3000';
 
@@ -19,4 +20,4 @@ new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});

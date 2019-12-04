@@ -30,6 +30,7 @@
 
 <script>
     import axios from 'axios';
+    import { bus } from '../main';
     import {required} from 'vuelidate/lib/validators';
     export default {
         data() {
@@ -62,7 +63,8 @@
                         localStorage.setItem('userData', JSON.stringify(response.data));
                          //redirect logic
                         if (status === 200) {
-                            self.$router.push('/mysync');
+                          bus.$emit('loggedIn');
+                          self.$router.push('/mysync');
                         }
                     })
                     .catch(error => {

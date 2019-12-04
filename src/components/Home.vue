@@ -6,3 +6,12 @@
       <p>TM4J2GIT allows to synchronize from one or several JIRA TM4J projects in GIT repositories.</p>
     </div>
 </template>
+
+<script>
+  import { bus } from '../main';
+  export default {
+    created() {
+      bus.$emit('loggedOut');
+    }
+  }
+</script>

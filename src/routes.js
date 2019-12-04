@@ -5,7 +5,7 @@ import AddSync from './components/AddSync.vue';
 import MySync from './components/MySync.vue';
 import Admin from './components/Admin.vue';
 // import Logout from './components/Logout.vue';
-
+import Logs from './components/Logs.vue';
 
 export const routes = [
   { path: '', components: {
@@ -32,7 +32,8 @@ export const routes = [
     beforeEnter (to, from, next) {
       localStorage.clear();
       next('/')
-    }
+    },
   },
-  { path: '*', redirect: '/' }
+  { path: '*', redirect: '/' },
+  { path: '/logs', component: Logs  }
 ];
