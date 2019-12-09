@@ -71,9 +71,8 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import {required} from 'vuelidate/lib/validators';
-    import {authHeader} from '../authentication/auth-header';
+    import {getTm4jProjects, getGitProjects, getGitRepos, postSyncData} from '../repository';
 
     export default {
         data() {
@@ -106,78 +105,38 @@
         created() {
             // fetch the data when the view is created and the data is
             // already being observed
-            this.getTm4Projects();
-            this.getGitProjects()
+            this.getTm4jProjects();
+            this.getGitProjects();
         },
         methods: {
-            getTm4Projects() {
-                axios.get('/sync/getTm4jProjects',
-                    {
-                      headers: authHeader()
-                    })
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.tm4jProjects = response.data.tm4jProjects;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+            getTm4jProjects() {
+                getTm4jProjects()
+                  .then(tm4jProjects => {
+                    this.tm4jProjects = tm4jProjects.data.tm4jProjects})
             },
             getGitProjects() {
-                axios.get('/sync/getGitProjects',
-                    {
-                      headers: authHeader()
-                    })
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.gitProjects = response.data.gitProjects;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                getGitProjects()
+                  .then(gitProjects => {
+                    this.gitProjects = gitProjects.data.gitProjects})
             },
             getGitRepos() {
-                axios.get('/sync/getGitRepos',
-                    {
-                      headers: authHeader(),
-                      params: {
-                        gitProject: this.gitTargetProject,
-                        json: true
-                      }
-                    })
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.gitRepos = response.data.gitRepos;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                getGitRepos(this.gitTargetProject)
+                  .then(gitRepos => {
+                    this.gitRepos = gitRepos.data.gitRepos})
             },
             onSubmit() {
-                let self = this;
-                axios.post('/sync/addSync',
-                    {
-                        user: this.user,
-                        syncTitle: this.syncTitle,
-                        tm4jSourceProject: this.tm4jSourceProject,
-                        gitTargetProject: this.gitTargetProject,
-                        gitTargetRepository: this.gitTargetRepository,
-                        autoSyncFlag: this.autoSyncFlag,
-                        json: true
-                    })
-                    .then(response => {
-                        if (response.status == '201') {
-                            console.log(response.status);
-                            self.$router.push('mySync');
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            },
+                let userData = JSON.parse(localStorage.getItem('userData'));
+                let syncData = {
+                  user: userData.user,
+                  syncTitle: this.syncTitle,
+                  tm4jSourceProject: this.tm4jSourceProject,
+                  gitTargetProject: this.gitTargetProject,
+                  gitTargetRepository: this.gitTargetRepository,
+                  autoSyncFlag: this.autoSyncFlag
+                };
+                postSyncData(syncData)
+                  .then(this.$router.push('mySync'))
+            }
         }
     }
 </script>

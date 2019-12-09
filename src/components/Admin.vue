@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="form-group">
     <div>
       <label for="setAdministrator">Administrators</label>
       <select

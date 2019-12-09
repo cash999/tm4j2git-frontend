@@ -4,7 +4,6 @@ import Login from './components/Login.vue';
 import AddSync from './components/AddSync.vue';
 import MySync from './components/MySync.vue';
 import Admin from './components/Admin.vue';
-// import Logout from './components/Logout.vue';
 import Logs from './components/Logs.vue';
 
 export const routes = [

@@ -28,48 +28,17 @@
   import { bus } from '../main';
   export default {
     data () {
-      return {
-        isAuth: this._isAuth(),
-        isAdmin: this._isAdmin()
-      }
-    },
-    created() {
-      bus.$on('loggedIn', () => {
-        this.isAuth = this._isAuth();
-        this.isAdmin = this._isAdmin();
+      bus.$on('loggedIn', (userData) => {
+        this.isAuth = userData.isLoggedIn;
+        this.isAdmin = userData.isAdmin;
       });
       bus.$on('loggedOut', () => {
-        this.isAuth = this._isAuth();
-        this.isAdmin = this._isAdmin();
-      })
-    },
-    methods: {
-      _isAdmin () {
-        let userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData !== null) {
-          if (userData.isAdmin) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      },
-      _isAuth () {
-        let userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData !== null) {
-          if (userData.isLoggedIn) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      },
-      xxx(){
-        console.log("exiiiiit");
+        this.isAuth = false;
+        this.isAdmin = false;
+      });
+      return {
+        isAuth: this.isAuth,
+        isAdmin: this.isAdmin
       }
     }
   }

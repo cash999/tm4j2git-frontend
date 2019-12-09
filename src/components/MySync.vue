@@ -52,10 +52,7 @@
             getMySync() {
                 axios.get('/sync/getMySync',
                     {
-                        headers: authHeader(),
-                        params: {
-                            json: true
-                        }
+                        headers: authHeader()
                     })
                     .then(response => {
                         if (response.status === 200) {
@@ -66,7 +63,7 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log(error);
                     })
             },
             removeSync: function(index, _id) {
@@ -81,6 +78,9 @@
                     {
                         _id: _id,
                         json: true
+                    },
+                    {
+                      headers: authHeader()
                     })
                     .then(response => {
                         if (response.status === 200) {
