@@ -18,7 +18,7 @@
               <td>{{mysync.data[1].tm4jSource}}</td>
               <td>{{mysync.data[2].gitTargetProject}}</td>
               <td>{{mysync.data[3].gitTargetRepository}}</td>
-              <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+              <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs"  @click="editSync(mysync)" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
               <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" @click="removeSync(index, mysync._id)" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
               <hr>
             </tr>
@@ -34,13 +34,13 @@
 <script>
     import axios from 'axios';
     import {authHeader} from '../authentication/auth-header';
+    import {bus} from '../main';
 
     export default {
         data() {
             return {
                 mysync: '',
-                mysyncs: [],
-                editsync: []
+                mysyncs: []
             }
         },
         created() {
@@ -56,16 +56,22 @@
                     })
                     .then(response => {
                         if (response.status === 200) {
-                            console.log(response.data.autoSyncData);
+                            // console.log(response.data.autoSyncData);
                             //console.log(response.data.autoSyncData[0]._id);
                             this.mysyncs = response.data.autoSyncData;
-                            console.log(this.mysyncs[0])
+                            // console.log(this.mysyncs[0])
                         }
                     })
                     .catch(error => {
                         console.log(error);
                     })
             },
+            editSync: function( eMySync) {
+                // console.log('mysy'+ eMySync);
+                bus.$emit('MySyncInput',eMySync);
+                this.$router.push('/editSync')
+            },
+
             removeSync: function(index, _id) {
                 console.log(_id);
                 this.mysyncs.splice(index, 1);

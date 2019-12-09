@@ -4,7 +4,10 @@ import Login from './components/Login.vue';
 import AddSync from './components/AddSync.vue';
 import MySync from './components/MySync.vue';
 import Admin from './components/Admin.vue';
-import Logs from './components/Logs.vue';
+import EditSync from './components/EditSync.vue';
+import Logs from './components/Logs.vue'
+// import Logout from './components/Logout.vue';
+
 
 export const routes = [
   { path: '', components: {
@@ -14,6 +17,7 @@ export const routes = [
   { path: '/login', name: 'Login', component: Login  },
   { path: '/addSync', component: AddSync  },
   { path: '/mySync', mySync: 'MySync', component: MySync  },
+  { path: '/editSync', editSync: 'EditSync', component: EditSync },
   {
     path: '/admin',
     component: Admin,
