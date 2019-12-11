@@ -33,3 +33,103 @@ export function postSyncData(syncData) {
       headers: authHeader(),
     })
 }
+
+export function getAdministrators() {
+  return axios.get('/admin/getAdminUserList',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getSyncInterval() {
+  return axios.get('/admin/getSyncInterval',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getSyncLogHoldTime() {
+  return axios.get('/admin/getSyncLogHoldTime',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getErrorLogHoldTime() {
+  return axios.get('/admin/getErrorLogHoldTime',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getUserNameSA() {
+  return axios.get('/admin/getUserNameSA',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getPasswordSA() {
+  return axios.get('/admin/getPasswordSA',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getPrivateSSHKey() {
+  return axios.get('/admin/getPrivateSSHKey',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getPublicSSHKey() {
+  return axios.get('/admin/getPublicSSHKey',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getJiraBaseURL() {
+  return axios.get('/admin/getJiraBaseURL',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getGitBaseURL() {
+  return axios.get('/admin/getGitBaseURL',
+    {
+      headers: authHeader()
+    })
+}
+
+export function postAdminData(adminData) {
+  return axios.post('/admin/saveAdminSettings',
+    adminData,
+    {
+      headers: authHeader(),
+    })
+}
+
+export function getSyncs() {
+  return axios.get('/logs/getmysynclogs',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getSyncLog(syncName) {
+  return axios.post('/logs/synclogs',
+    syncName,
+    {
+      headers: authHeader()
+    })
+}
+
+export function getErrorLog() {
+  return axios.get('/logs/errorlogs',
+    {
+      headers: authHeader()
+    })
+}

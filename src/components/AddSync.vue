@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form @submit.prevent="_onSubmit">
     <div class="form-group">
       <label for="syncTitle">Title</label>
       <input
@@ -30,7 +30,7 @@
         class="form-control"
         id="gitTargetProject"
         name="gitTargetProject"
-        v-on:change="getGitRepos"
+        v-on:change="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetProject">
         //v-on:focus="getGitProjects"
@@ -46,7 +46,7 @@
         class="form-control"
         id="gitTargetRepository"
         name="gitTargetRepository"
-        v-on:focus="getGitRepos"
+        v-on:focus="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
         <option value="">-- Select the GIT repository --</option>
@@ -66,6 +66,8 @@
       </label>
     </div>
     <br>
+    <h3>{{errorMsg}}</h3>
+    <br>
     <button class="btn btn-primary" type=submit :disabled="$v.$invalid">Save</button>
   </form>
 </template>
@@ -84,7 +86,8 @@
                 gitTargetProject: '',
                 gitRepos: [],
                 gitTargetRepository: '',
-                autoSyncFlag: false
+                autoSyncFlag: false,
+                errorMsg: ''
             }
         },
         //For input validation from npm module vuelidate
@@ -105,37 +108,48 @@
         created() {
             // fetch the data when the view is created and the data is
             // already being observed
-            this.getTm4jProjects();
-            this.getGitProjects();
+            this._getTm4jProjects();
+            this._getGitProjects();
         },
         methods: {
-            getTm4jProjects() {
+            _getTm4jProjects() {
                 getTm4jProjects()
                   .then(tm4jProjects => {
-                    this.tm4jProjects = tm4jProjects.data.tm4jProjects})
+                    this.tm4jProjects = tm4jProjects.data.tm4jProjects
+                  })
             },
-            getGitProjects() {
+            _getGitProjects() {
                 getGitProjects()
                   .then(gitProjects => {
-                    this.gitProjects = gitProjects.data.gitProjects})
+                    this.gitProjects = gitProjects.data.gitProjects
+                  })
             },
-            getGitRepos() {
+            _getGitRepos() {
                 getGitRepos(this.gitTargetProject)
                   .then(gitRepos => {
-                    this.gitRepos = gitRepos.data.gitRepos})
+                    this.gitRepos = gitRepos.data.gitRepos
+                  })
             },
-            onSubmit() {
-                let userData = JSON.parse(localStorage.getItem('userData'));
-                let syncData = {
+            _onSubmit() {
+              console.log("save");
+              let userData = JSON.parse(localStorage.getItem('userData'));
+              let syncData = {
                   user: userData.user,
                   syncTitle: this.syncTitle,
                   tm4jSourceProject: this.tm4jSourceProject,
                   gitTargetProject: this.gitTargetProject,
                   gitTargetRepository: this.gitTargetRepository,
                   autoSyncFlag: this.autoSyncFlag
-                };
-                postSyncData(syncData)
-                  .then(this.$router.push('mySync'))
+              };
+              console.log(this.tm4jSourceProject);
+              postSyncData(syncData)
+                .then(response => {
+                  if (response.status === 201) {
+                    this.$router.push('mySync');
+                  }
+                  }, response => {
+                  this.errorMsg = "Sync " + syncData.tm4jSourceProject + " to " + syncData.gitTargetProject + "/" + syncData.gitTargetRepository + " already exists!";
+                })
             }
         }
     }

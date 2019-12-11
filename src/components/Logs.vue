@@ -16,7 +16,7 @@
       <p data-placement="top"
          data-toggle="tooltip"
          title="Show Sync Logs">
-          <button v-on:click="getSyncLog"
+          <button v-on:click="_getSyncLog"
                   type="submit"
                   formaction="getSyncLog"
                   class="btn btn-primary btn-xs"
@@ -33,7 +33,7 @@
       <p data-placement="top"
          data-toggle="tooltip"
          title="Show Error Logs">
-        <button v-on:click="getErrorLog"
+        <button v-on:click="_getErrorLog"
                 type="submit"
                 formaction="getErrorLog"
                 class="btn btn-primary btn-xs"
@@ -50,8 +50,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import {authHeader} from '../authentication/auth-header';
+  import {getSyncs, getSyncLog, getErrorLog} from '../repository';
+
   export default {
     data() {
       return {
@@ -67,11 +67,11 @@
     created() {
       // fetch the data when the view is created and the data is
       // already being observed
-      this.isAdmin();
-      this.getSyncs();
+      this._isAdmin();
+      this._getSyncs();
     },
     methods: {
-      isAdmin () {
+      _isAdmin () {
         let userData = JSON.parse(localStorage.getItem('userData'));
         if (userData !== null) {
           if (userData.isAdmin) {
@@ -83,49 +83,30 @@
           this.isAdministrator = false;
         }
       },
-      getSyncs() {
-        axios.get('/logs/getmysynclogs',
-          {
-            headers: authHeader()
-          })
-          .then(response => {
-            if (response.status === 200) {
-              this.mySyncs = response.data;
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      _getSyncs() {
+        getSyncs()
+          .then(mySyncs => {
+          this.mySyncs = mySyncs.data
+        })
       },
-      getSyncLog() {
+      _getSyncLog() {
         this.clickCountSync ++;
-        axios.post('/logs/synclogs',
-          {
-          syncName: this.getSyncName
-          },
-          {
-            headers: authHeader(),
-          })
-          .then(response => {
+        let syncName = {syncName: this.getSyncName};
+        getSyncLog(syncName)
+          .then(syncLog => {
             if (this.clickCountSync === 1) {
-              if (response.status === 200) {
-                this.showSyncLog = response.data;
+              if (syncLog.status === 200) {
+                this.showSyncLog = syncLog.data;
               }
             } else if (this.clickCountSync === 2) {
               this.showSyncLog = [];
               this.clickCountSync = 0;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getErrorLog() {
+      _getErrorLog() {
         this.clickCountError ++;
-        axios.get('/logs/errorlogs',
-          {
-            headers: authHeader()
-          })
+        getErrorLog()
           .then(response => {
             if (this.clickCountError === 1) {
               if (response.status === 200) {
@@ -136,9 +117,6 @@
               this.showErrorLog = [];
               this.clickCountError = 0;
             }
-          })
-          .catch(error => {
-            console.log(error)
           })
       }
     }
