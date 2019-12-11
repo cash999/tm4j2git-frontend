@@ -34,7 +34,6 @@
 <script>
     import axios from 'axios';
     import {authHeader} from '../authentication/auth-header';
-    import {bus} from '../main';
 
     export default {
         data() {
@@ -56,20 +55,20 @@
                     })
                     .then(response => {
                         if (response.status === 200) {
-                            // console.log(response.data.autoSyncData);
-                            //console.log(response.data.autoSyncData[0]._id);
                             this.mysyncs = response.data.autoSyncData;
-                            // console.log(this.mysyncs[0])
                         }
                     })
                     .catch(error => {
                         console.log(error);
                     })
             },
-            editSync: function( eMySync) {
-                // console.log('mysy'+ eMySync);
-                bus.$emit('MySyncInput',eMySync);
-                this.$router.push('/editSync')
+            editSync( eMySync ) {
+                console.log('mySync  '+ eMySync.data[0].syncTitle);
+                let users= eMySync.data[5].users;
+                for (let i in users) {
+                    console.log('userList ' , users[i].user);
+                }
+                this.$router.push({path: '/editSync', query: eMySync})
             },
 
             removeSync: function(index, _id) {

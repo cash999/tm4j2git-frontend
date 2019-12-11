@@ -6,6 +6,11 @@ import axios from 'axios';
 import Vuelidate from 'vuelidate/';
 export const bus = new Vue();
 
+import * as synctractor from 'synctractor/dist/index.js';
+synctractor.init();
+synctractor.monitorFetch();
+synctractor.monitorTimeout((_, t) => t !== 11000);
+
 axios.defaults.baseURL ='http://localhost:3000';
 
 Vue.use(Vuelidate);

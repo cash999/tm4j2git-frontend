@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--  <form @submit.prevent="onSubmit">-->
+  <form @submit.prevent="onSubmit">
     <div class="form-group">
       <label for="syncTitle">Title</label>
       <input
@@ -18,7 +18,7 @@
         name="tm4jSourceProject"
         @input="$v.tm4jSourceProject.$touch()"
         v-model="tm4jSourceProject">
-        <option v-for="tm4jProject in tm4jProjects" :selected="tm4jProject === eTm4JProject">
+        <option v-for="tm4jProject in tm4jProjects" :selected="tm4jProject === tm4jSourceProject">
           {{ tm4jProject }}
         </option>
       </select>
@@ -34,7 +34,7 @@
         v-model="gitTargetProject">
         //v-on:focus="getGitProjects"
         <option value="">  </option>
-        <option v-for="gitProject in gitProjects" :selected="gitProject === eGitProject">
+        <option v-for="gitProject in gitProjects" :selected="gitProject === gitTargetProject">
           {{ gitProject }}
         </option>
       </select>
@@ -48,8 +48,7 @@
         v-on:focus="getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
-        <option value="">-- Select the GIT repository --</option>
-        <option v-for="gitRepo in gitRepos">
+        <option v-for="gitRepo in gitRepos" :selected="gitRepo === gitTargetRepository">
           {{ gitRepo }}
         </option>
       </select>
@@ -64,26 +63,37 @@
         Enable automatic synchronisation
       </label>
     </div>
-    <br>
     <div class="form-group">
       <label for="userList">User list</label>
       <select
         class="form-control"
         id="userList"
         name="userList"
-        size="userList.length"
-        @input="$v.userList.$touch()"
-        v-model="userList">
-        //v-on:focus="getGitProjects"
-        <option v-for="user in userlist">
-          {{ user }}
+        size=3
+        v-model="rUser">
+        <option v-for="user in userList">
+          {{ user.user }}
         </option>
       </select>
-      <button class="btn btn-primary" type=submit :disabled="$v.$invalid">Add user</button>
-      <button class="btn btn-primary" type=submit :disabled="$v.$invalid">Remove user</button>
     </div>
-    <button class="btn btn-primary" type=submit :disabled="$v.$invalid">Save</button>
-<!--  </form>-->
+    <div class="form-group">
+      <button class="btn btn-primary btn-xs" type=button @click="removeUser">Remove user</button>
+    </div>
+    <div class="form-group">
+      <label for="AddUser">Add a new user account</label>
+      <input
+        class="form-control"
+        type="text"
+        id="addUser"
+        name="addUser"
+        v-model="aUser">
+    </div>
+    <div>
+      <button class="btn btn-primary btn-xs" type=button @click="addUser">Add user</button>
+    </div>
+      <br>
+      <button class="btn btn-primary" :disabled="$v.$invalid">Save sync</button>
+  </form>
   </div>
 </template>
 
@@ -91,16 +101,11 @@
     import axios from 'axios';
     import {required} from 'vuelidate/lib/validators';
     import {authHeader} from '../authentication/auth-header';
-    import {bus} from '../main';
 
     export default {
         data() {
-            bus.$once('MySyncInput', (eMySync) => {
-                this.eSyncTitle = eMySync.data[0].syncTitle;
-            });
-
             return {
-                syncTitle:  this.eSyncTitle,
+                syncTitle: '',
                 tm4jProjects: [],
                 tm4jSourceProject: '',
                 gitProjects: [],
@@ -108,14 +113,10 @@
                 gitRepos: [],
                 gitTargetRepository: '',
                 autoSyncFlag: '',
-                eSyncTitle: '',
-                eSyncId: '',
-                eTm4JProject: '',
-                eGitProject: '',
-                eGitRepo: '',
-                eAutoSyncFlag: [],
+                syncId: '',
                 userList: [],
-                user: ''
+                rUser:'',
+                aUser:'',
             }
         },
         //For input validation from npm module vuelidate
@@ -132,41 +133,41 @@
             gitTargetRepository: {
                 required
             },
+            userList: {
+                required
+            }
         },
         created() {
             // fetch the data when the view is created and the data is
             // already being observed
             this.getTm4Projects();
             this.getGitProjects();
-            // this.syncTitle='syncTitle';
-            // this.getBusData();
-            // // bus.$once('MySyncInput', (eMySync) => {
-            // //     this.setData(eMySync);
-            // //     // this.syncTitle = eMySync.data[0].syncTitle;
-            // //     console.log('created', this.syncTitle);
-            // // });
+            this.syncTitle = this.$route.query.data[0].syncTitle;
+            // this.eMySync = this.$route.query.data;
+            this.tm4jSourceProject = this.$route.query.data[1].tm4jSource;
+            this.gitTargetProject = this.$route.query.data[2].gitTargetProject;
+            this.getGitRepos();
+            this.gitTargetRepository = this.$route.query.data[3].gitTargetRepository;
+            this.autoSyncFlag = this.$route.query.data[4].autoSyncFlag;
+            this.userList = this.$route.query.data[5].users;
+            console.log('created',this.$route.query.data[5].users);
 
 
         },
         methods: {
-            // getBusData(){
-            //     bus.$once('MySyncInput', (eMySync) => {
-            //     })
-            //     .then(mySync => {
-            //
-            //         this.syncTitle = mySync.data[0].syncTitle;
-            //         console.log('created', this.syncTitle)
-            //
-            //     })
-            // },
-            // setData(eMySync) {
-            //     // this.eSyncTitle = eMySync.data[0].syncTitle;
-            //     this.eTm4JProject = eMySync.data[1].tm4jSource;
-            //     this.eGitProject = eMySync.data[2].gitTargetProject;
-            //     this.eGitRepo = eMySync.data[3].gitTargetRepository;
-            //     this.eAutoSyncFlag = eMySync.data[4].autoSyncFlag;
-            //     console.log('setdata', this.eGitProject);
-            // },
+            removeUser() {
+                console.log('rUser',this.rUser);
+                console.log('rUserList', this.userList);
+                console.log('rUserIndex',this.userList.findIndex( users => users.user === this.rUser));
+                this.userList.splice(this.userList.findIndex( users => users.user === this.rUser) , 1 );
+                console.log('rUserList', this.userList);
+            },
+            addUser() {
+                console.log(this.aUser);
+                this.userList.push({user: this.aUser});
+                console.log('aUserList', this.userList);
+                this.aUser ='';
+            },
             getTm4Projects() {
                 axios.get('/sync/getTm4jProjects',
                     {
@@ -214,21 +215,24 @@
                     })
             },
             onSubmit() {
-                let self = this;
-                axios.post('/sync/addSync',
+                // let userData = JSON.parse(localStorage.getItem('userData'));
+                axios.post('/sync/postEditMysync',
                     {
-                        user: this.user,
                         syncTitle: this.syncTitle,
                         tm4jSourceProject: this.tm4jSourceProject,
                         gitTargetProject: this.gitTargetProject,
                         gitTargetRepository: this.gitTargetRepository,
                         autoSyncFlag: this.autoSyncFlag,
+                        users: this.userList,
                         json: true
+                    },
+                    {
+                        headers: authHeader(),
                     })
                     .then(response => {
                         if (response.status == '201') {
                             console.log(response.status);
-                            self.$router.push('mySync');
+                            this.$router.push('mySync');
                         }
                     })
                     .catch(error => {

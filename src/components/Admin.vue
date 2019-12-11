@@ -328,7 +328,8 @@
       },
       removeAdminUser() {
         //this.administrators.splice( this.administrators.indexOf({adminUser: addAdministrator.value}), 1 );
-        this.administrators.splice( this.administrators.indexOf({adminUser: this.setAdministrator}), 1 );
+        this.administrators.splice( this.administrators.indexOf({adminUser: this.setAdministrator}), 1 )
+        console.log(this.administrators.indexOf({adminUser: this.setAdministrator}));
 
       },
       addAdminUser() {
