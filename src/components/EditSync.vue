@@ -80,7 +80,7 @@
       <button class="btn btn-primary btn-xs" type=button @click="removeUser">Remove user</button>
     </div>
     <div class="form-group">
-      <label for="AddUser">Add a new user account</label>
+      <label for="addUser">Add a new user account</label>
       <input
         class="form-control"
         type="text"
@@ -92,7 +92,7 @@
       <button class="btn btn-primary btn-xs" type=button @click="addUser">Add user</button>
     </div>
       <br>
-      <button class="btn btn-primary" :disabled="$v.$invalid">Save sync</button>
+      <button class="btn btn-primary" type="submit" :disabled="$v.$invalid">Save sync</button>
   </form>
   </div>
 </template>
@@ -135,6 +135,9 @@
             },
             userList: {
                 required
+            },
+            addUser: {
+                required
             }
         },
         created() {
@@ -152,21 +155,28 @@
             this.userList = this.$route.query.data[5].users;
             console.log('created',this.$route.query.data[5].users);
 
-
         },
         methods: {
             removeUser() {
-                console.log('rUser',this.rUser);
-                console.log('rUserList', this.userList);
-                console.log('rUserIndex',this.userList.findIndex( users => users.user === this.rUser));
-                this.userList.splice(this.userList.findIndex( users => users.user === this.rUser) , 1 );
-                console.log('rUserList', this.userList);
+                if (this.userList.length <=1) {
+                    alert('At least one user has to be on the user list!');
+                } else {
+                    this.userList.splice(this.userList.findIndex( users => users.user === this.rUser) , 1 );
+                }
             },
             addUser() {
-                console.log(this.aUser);
-                this.userList.push({user: this.aUser});
-                console.log('aUserList', this.userList);
-                this.aUser ='';
+                let getExistUser = this.userList.find( existUsers => existUsers.user === this.aUser);
+                if (this.aUser === '') {
+                    alert('User name is not correct!')
+                } else if
+                    (getExistUser === undefined) {
+                        console.log(this.aUser);
+                        this.userList.push({user: this.aUser});
+                        console.log('aUserList', this.userList);
+                }
+                else {
+                    alert('User already exists!')
+                }
             },
             getTm4Projects() {
                 axios.get('/sync/getTm4jProjects',
