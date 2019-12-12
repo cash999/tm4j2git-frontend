@@ -67,12 +67,13 @@
           .then(response => {
             if (response.status === 200) {
               this.getMySyncs = response.data.autoSyncData;
+              // console.log('getMySync' + JSON.stringify(this.getMySyncs));
               this.getMySyncs.forEach(function (sync) {
-                console.log(sync.data);
+                // console.log(sync.data);
                 if (!Boolean(sync.data.find(autoSyncFlag => autoSyncFlag.autoSyncFlag))) {
                 sync.data.push({status: "disabled"});
                 } else {
-                  console.log(this.tm4jConErrors.length);
+                  // console.log(this.tm4jConErrors.length);
                   sync.data.push({status: "enabled"});
                 }
               });
@@ -81,11 +82,6 @@
           })
       },
       editSync( eMySync ) {
-        console.log('mySync  '+ eMySync.data[0].syncTitle);
-        let users= eMySync.data[5].users;
-        for (let i in users) {
-          console.log('userList ' , users[i].user);
-        }
         this.$router.push({path: '/editSync', query: eMySync})
       },
 

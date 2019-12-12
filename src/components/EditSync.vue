@@ -105,6 +105,7 @@
     export default {
         data() {
             return {
+                id: '',
                 syncTitle: '',
                 tm4jProjects: [],
                 tm4jSourceProject: '',
@@ -145,15 +146,15 @@
             // already being observed
             this.getTm4Projects();
             this.getGitProjects();
+            this.id = this.$route.query._id;
             this.syncTitle = this.$route.query.data[0].syncTitle;
-            // this.eMySync = this.$route.query.data;
             this.tm4jSourceProject = this.$route.query.data[1].tm4jSource;
             this.gitTargetProject = this.$route.query.data[2].gitTargetProject;
             this.getGitRepos();
             this.gitTargetRepository = this.$route.query.data[3].gitTargetRepository;
             this.autoSyncFlag = this.$route.query.data[4].autoSyncFlag;
             this.userList = this.$route.query.data[5].users;
-            console.log('created',this.$route.query.data[5].users);
+
 
         },
         methods: {
@@ -170,9 +171,7 @@
                     alert('User name is not correct!')
                 } else if
                     (getExistUser === undefined) {
-                        console.log(this.aUser);
                         this.userList.push({user: this.aUser});
-                        console.log('aUserList', this.userList);
                 }
                 else {
                     alert('User already exists!')
@@ -225,16 +224,16 @@
                     })
             },
             onSubmit() {
-                // let userData = JSON.parse(localStorage.getItem('userData'));
+                console.log(this.id);
                 axios.post('/sync/postEditMysync',
                     {
+                        id: this.id,
                         syncTitle: this.syncTitle,
                         tm4jSourceProject: this.tm4jSourceProject,
                         gitTargetProject: this.gitTargetProject,
                         gitTargetRepository: this.gitTargetRepository,
                         autoSyncFlag: this.autoSyncFlag,
-                        users: this.userList,
-                        json: true
+                        users: this.userList
                     },
                     {
                         headers: authHeader(),
