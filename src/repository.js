@@ -26,6 +26,26 @@ export function getGitRepos(gitTargetProject) {
     })
 }
 
+export function getMySync() {
+  return axios.get('/sync/getMySync',
+    {
+      headers: authHeader()
+    })
+}
+export function getTm4jConnectivityErrors() {
+  return axios.get('/sync/getTm4jConnectivityErrors',
+    {
+      headers: authHeader()
+    })
+}
+
+export function getGitConnectivityErrors() {
+  return axios.get('/sync/getGitConnectivityErrors',
+    {
+      headers: authHeader()
+    })
+}
+
 export function postSyncData(syncData) {
   return axios.post('/sync/addSync',
       syncData,

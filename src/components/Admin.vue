@@ -16,7 +16,7 @@
       <p data-placement="top"
          data-toggle="tooltip"
          title="Remove Admin User">
-          <button v-on:click="removeAdminUser"
+          <button v-on:click="_removeAdminUser"
                   type="submit"
                   formaction="removeAdmin"
                   class="btn btn-primary btn-xs"
@@ -37,7 +37,7 @@
       <p data-placement="top"
          data-toggle="tooltip"
          title="Add Admin User">
-        <button v-on:click="addAdminUser"
+        <button v-on:click="_addAdminUser"
                 type="submit"
                 formaction="addAdmin"
                 class="btn btn-primary btn-xs"
@@ -128,11 +128,12 @@
         id="GitBaseUrl"
         v-model="gitBaseUrl">
     </div>
+    <br>
     <div>
       <p data-placement="top"
          data-toggle="tooltip"
          title="Save Admin Settings">
-        <button v-on:click="onSubmit"
+        <button v-on:click="_onSubmit"
                 type="submit"
                 formaction="saveAdminSettings"
                 class="btn btn-primary btn-xs"
@@ -146,8 +147,19 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import {authHeader} from '../authentication/auth-header';
+  import {getAdministrators,
+          getSyncInterval,
+          getSyncLogHoldTime,
+          getErrorLogHoldTime,
+          getUserNameSA,
+          getPasswordSA,
+          getPrivateSSHKey,
+          getPublicSSHKey,
+          getJiraBaseURL,
+          getGitBaseURL,
+          postAdminData
+         } from '../repository';
+
   export default {
     data() {
       return {
@@ -171,177 +183,109 @@
     created() {
       // fetch the data when the view is created and the data is
       // already being observed
-      this.getAdministrators();
-      this.getSyncInterval();
-      this.getSyncLogHoldTime();
-      this.getErrorLogHoldTime();
-      this.getUserNameSA();
-      this.getPasswordSA();
-      this.getPrivateSSHKey();
-      this.getPublicSSHKey();
-      this.getJiraBaseURL();
-      this.getGitBaseURL();
-      this.removeAdminUser();
-      this.addAdminUser();
+      this._getAdministrators();
+      this._getSyncInterval();
+      this._getSyncLogHoldTime();
+      this._getErrorLogHoldTime();
+      this._getUserNameSA();
+      this._getPasswordSA();
+      this._getPrivateSSHKey();
+      this._getPublicSSHKey();
+      this._getJiraBaseURL();
+      this._getGitBaseURL();
+      this._removeAdminUser();
+      this._addAdminUser();
     },
     methods: {
-      getAdministrators() {
-        axios.get('/admin/getAdminUserList',
-          {
-            headers: authHeader()
-          })
+      _getAdministrators() {
+        getAdministrators()
           .then(response => {
             if (response.status === 200) {
-              console.log(response.data);
               this.administrators = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getSyncInterval() {
-        axios.get('/admin/getSyncInterval',
-          {
-            headers: authHeader()
-          })
+      _getSyncInterval() {
+        getSyncInterval()
           .then(response => {
             if (response.status === 200) {
               this.setSyncInterval = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getSyncLogHoldTime() {
-        axios.get('/admin/getSyncLogHoldTime',
-          {
-            headers: authHeader()
-          })
+      _getSyncLogHoldTime() {
+        getSyncLogHoldTime()
           .then(response => {
             if (response.status === 200) {
               this.setSyncLogHoldTime = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getErrorLogHoldTime() {
-        axios.get('/admin/getErrorLogHoldTime',
-          {
-            headers: authHeader()
-          })
+      _getErrorLogHoldTime() {
+        getErrorLogHoldTime()
           .then(response => {
             if (response.status === 200) {
               this.setErrorLogHoldTime = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getUserNameSA() {
-        axios.get('/admin/getUserNameSA',
-          {
-            headers: authHeader()
-          })
+      _getUserNameSA() {
+        getUserNameSA()
           .then(response => {
             if (response.status === 200) {
               this.userNameSA = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getPasswordSA() {
-        axios.get('/admin/getPasswordSA',
-          {
-            headers: authHeader()
-          })
+      _getPasswordSA() {
+        getPasswordSA()
           .then(response => {
             if (response.status === 200) {
               this.passwordSA = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getPrivateSSHKey() {
-        axios.get('/admin/getPrivateSSHKey',
-          {
-            headers: authHeader()
-          })
+      _getPrivateSSHKey() {
+        getPrivateSSHKey()
           .then(response => {
             if (response.status === 200) {
               this.privateSSHKey = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getPublicSSHKey() {
-        axios.get('/admin/getPublicSSHKey',
-          {
-            headers: authHeader()
-          })
+      _getPublicSSHKey() {
+        getPublicSSHKey()
           .then(response => {
             if (response.status === 200) {
               this.publicSSHKey = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getJiraBaseURL() {
-        axios.get('/admin/getJiraBaseURL',
-          {
-            headers: authHeader()
-          })
+      _getJiraBaseURL() {
+        getJiraBaseURL()
           .then(response => {
             if (response.status === 200) {
               this.jiraBaseURL = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      getGitBaseURL() {
-        axios.get('/admin/getGitBaseURL',
-          {
-            headers: authHeader()
-          })
+      _getGitBaseURL() {
+        getGitBaseURL()
           .then(response => {
             if (response.status === 200) {
               this.gitBaseUrl = response.data;
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
       },
-      removeAdminUser() {
-        //this.administrators.splice( this.administrators.indexOf({adminUser: addAdministrator.value}), 1 );
+      _removeAdminUser() {
         this.administrators.splice( this.administrators.indexOf({adminUser: this.setAdministrator}), 1 )
-        console.log(this.administrators.indexOf({adminUser: this.setAdministrator}));
-
       },
-      addAdminUser() {
-        //this.administrators.push({adminUser: addAdministrator.value});
+      _addAdminUser() {
         this.administrators.push({adminUser: this.addAdministrator});
         this.addAdministrator = '';
       },
-      onSubmit() {
-        let self = this;
-        console.log(this.administrators.length);
-        axios.post('/admin/saveAdminSettings',
-          {
+      _onSubmit() {
+        let adminData = {
               adminUsers: this.administrators,
               setSyncInterval: this.setSyncInterval,
               setSyncLogHoldTime: this.setSyncLogHoldTime,
@@ -352,17 +296,12 @@
               sshPublicKey: this.publicSSHKey,
               tm4jURL: this.jiraBaseURL,
               gitURL: this.gitBaseUrl
-          },
-          {
-            headers: authHeader(),
-          })
+          };
+        postAdminData(adminData)
           .then(response => {
             if (response.status === 201) {
-              self.$router.push('mySync');
+              this.$router.push('mySync');
             }
-          })
-          .catch(error => {
-            console.log(error)
           })
       },
     }

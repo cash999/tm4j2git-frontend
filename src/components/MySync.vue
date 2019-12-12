@@ -6,7 +6,7 @@
           <table id="q" class="table table-bordred table-striped">
             <thead>
             <th>Title</th>
-            <th>Sync name</th>
+            <th>Sync status</th>
             <th>JIRA project</th>
             <th>Git project</th>
             <th>Git repository</th>
@@ -16,7 +16,7 @@
             <tbody>
             <tr v-for="(mysync, index) in mysyncs">
               <td>{{mysync.data[0].syncTitle}}</td>
-              <td>{{mysync.syncName}}</td>
+              <td>{{mysync.data[6].status}}</td>
               <td>{{mysync.data[1].tm4jSource}}</td>
               <td>{{mysync.data[2].gitTargetProject}}</td>
               <td>{{mysync.data[3].gitTargetRepository}}</td>
@@ -36,32 +36,48 @@
 <script>
   import axios from 'axios';
   import {authHeader} from '../authentication/auth-header';
+  import {getTm4jConnectivityErrors, getGitConnectivityErrors, getMySync} from '../repository'
 
   export default {
     data() {
       return {
         mysync: '',
-        mysyncs: []
+        mysyncs: [],
+        getMySyncs: [],
+        tm4jConErrors: [],
+        gitConErrors: [],
       }
     },
     created() {
       // fetch the data when the view is created and the data is
       // already being observed
-      this.getMySync();
+      this._getMySync();
     },
     methods: {
-      getMySync() {
-        axios.get('/sync/getMySync',
-          {
-            headers: authHeader()
-          })
+      _getMySync() {
+        getTm4jConnectivityErrors()
+          .then(tm4jConnectivityErrors => {
+              this.tm4jConErrors = tm4jConnectivityErrors.data;
+          });
+        getGitConnectivityErrors()
+          .then(gitConnectivityErrors => {
+              this.tm4jConErrors = gitConnectivityErrors.data;
+          });
+        getMySync()
           .then(response => {
             if (response.status === 200) {
-              this.mysyncs = response.data.autoSyncData;
+              this.getMySyncs = response.data.autoSyncData;
+              this.getMySyncs.forEach(function (sync) {
+                console.log(sync.data);
+                if (!Boolean(sync.data.find(autoSyncFlag => autoSyncFlag.autoSyncFlag))) {
+                sync.data.push({status: "disabled"});
+                } else {
+                  console.log(this.tm4jConErrors.length);
+                  sync.data.push({status: "enabled"});
+                }
+              });
+              this.mysyncs = this.getMySyncs;
             }
-          })
-          .catch(error => {
-            console.log(error);
           })
       },
       editSync( eMySync ) {
