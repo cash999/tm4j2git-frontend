@@ -131,17 +131,15 @@
                   })
             },
             _onSubmit() {
-              console.log("save");
               let userData = JSON.parse(localStorage.getItem('userData'));
               let syncData = {
-                  user: userData.user,
+                  users: [{user: userData.user}],
                   syncTitle: this.syncTitle,
                   tm4jSourceProject: this.tm4jSourceProject,
                   gitTargetProject: this.gitTargetProject,
                   gitTargetRepository: this.gitTargetRepository,
                   autoSyncFlag: this.autoSyncFlag
               };
-              console.log(this.tm4jSourceProject);
               postSyncData(syncData)
                 .then(response => {
                   if (response.status === 201) {

@@ -47,8 +47,18 @@ export function getGitConnectivityErrors() {
 }
 
 export function postSyncData(syncData) {
-  return axios.post('/sync/addSync',
+  return axios.post('/sync/postEditMysync',
       syncData,
+    {
+      headers: authHeader(),
+    })
+}
+
+
+export function postRemoveSync(id) {
+  console.log(id)
+  return axios.post('/sync/postRemoveSync',
+    id,
     {
       headers: authHeader(),
     })

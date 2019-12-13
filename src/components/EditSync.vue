@@ -1,6 +1,6 @@
 <template>
   <div>
-  <form @submit.prevent="onSubmit">
+  <form @submit.prevent="_onSubmit">
     <div class="form-group">
       <label for="syncTitle">Title</label>
       <input
@@ -29,7 +29,7 @@
         class="form-control"
         id="gitTargetProject"
         name="gitTargetProject"
-        v-on:change="getGitRepos"
+        v-on:change="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetProject">
         //v-on:focus="getGitProjects"
@@ -45,7 +45,7 @@
         class="form-control"
         id="gitTargetRepository"
         name="gitTargetRepository"
-        v-on:focus="getGitRepos"
+        v-on:focus="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
         <option v-for="gitRepo in gitRepos" :selected="gitRepo === gitTargetRepository">
@@ -77,7 +77,7 @@
       </select>
     </div>
     <div class="form-group">
-      <button class="btn btn-primary btn-xs" type=button @click="removeUser">Remove user</button>
+      <button class="btn btn-primary btn-xs" type=button @click="_removeUser">Remove user</button>
     </div>
     <div class="form-group">
       <label for="addUser">Add a new user account</label>
@@ -89,7 +89,7 @@
         v-model="aUser">
     </div>
     <div>
-      <button class="btn btn-primary btn-xs" type=button @click="addUser">Add user</button>
+      <button class="btn btn-primary btn-xs" type=button @click="_addUser">Add user</button>
     </div>
       <br>
       <button class="btn btn-primary" type="submit" :disabled="$v.$invalid">Save sync</button>
@@ -101,6 +101,12 @@
     import axios from 'axios';
     import {required} from 'vuelidate/lib/validators';
     import {authHeader} from '../authentication/auth-header';
+    import {
+      getTm4jProjects,
+      getGitProjects,
+      getGitRepos, postSyncData
+    } from '../repository';
+
 
     export default {
         data() {
@@ -136,36 +142,31 @@
             },
             userList: {
                 required
-            },
-            addUser: {
-                required
             }
         },
         created() {
             // fetch the data when the view is created and the data is
             // already being observed
-            this.getTm4Projects();
-            this.getGitProjects();
+            this._getTm4Projects();
+            this._getGitProjects();
             this.id = this.$route.query._id;
             this.syncTitle = this.$route.query.data[0].syncTitle;
             this.tm4jSourceProject = this.$route.query.data[1].tm4jSource;
             this.gitTargetProject = this.$route.query.data[2].gitTargetProject;
-            this.getGitRepos();
+            this._getGitRepos();
             this.gitTargetRepository = this.$route.query.data[3].gitTargetRepository;
             this.autoSyncFlag = this.$route.query.data[4].autoSyncFlag;
             this.userList = this.$route.query.data[5].users;
-
-
         },
         methods: {
-            removeUser() {
+            _removeUser() {
                 if (this.userList.length <=1) {
                     alert('At least one user has to be on the user list!');
                 } else {
                     this.userList.splice(this.userList.findIndex( users => users.user === this.rUser) , 1 );
                 }
             },
-            addUser() {
+            _addUser() {
                 let getExistUser = this.userList.find( existUsers => existUsers.user === this.aUser);
                 if (this.aUser === '') {
                     alert('User name is not correct!')
@@ -177,76 +178,47 @@
                     alert('User already exists!')
                 }
             },
-            getTm4Projects() {
-                axios.get('/sync/getTm4jProjects',
-                    {
-                        headers: authHeader()
-                    })
+            _getTm4Projects() {
+                getTm4jProjects()
                     .then(response => {
                         if (response.status === 200) {
                             this.tm4jProjects = response.data.tm4jProjects;
                         }
                     })
-                    .catch(error => {
-                        console.log(error)
-                    })
             },
-            getGitProjects() {
-                axios.get('/sync/getGitProjects',
-                    {
-                        headers: authHeader()
-                    })
+            _getGitProjects() {
+                getGitProjects()
                     .then(response => {
                         if (response.status === 200) {
                             this.gitProjects = response.data.gitProjects;
                         }
                     })
-                    .catch(error => {
-                        console.log(error)
-                    })
             },
-            getGitRepos() {
-                axios.get('/sync/getGitRepos',
-                    {
-                        headers: authHeader(),
-                        params: {
-                            gitProject: this.gitTargetProject,
-                            json: true
-                        }
-                    })
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.gitRepos = response.data.gitRepos;
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+            _getGitRepos() {
+              getGitRepos(this.gitTargetProject)
+                .then(gitRepos => {
+                  this.gitRepos = gitRepos.data.gitRepos
+                })
             },
-            onSubmit() {
-                console.log(this.id);
-                axios.post('/sync/postEditMysync',
-                    {
-                        id: this.id,
-                        syncTitle: this.syncTitle,
-                        tm4jSourceProject: this.tm4jSourceProject,
-                        gitTargetProject: this.gitTargetProject,
-                        gitTargetRepository: this.gitTargetRepository,
-                        autoSyncFlag: this.autoSyncFlag,
-                        users: this.userList
-                    },
-                    {
-                        headers: authHeader(),
-                    })
-                    .then(response => {
-                        if (response.status == '201') {
-                            console.log(response.status);
-                            this.$router.push('mySync');
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+            _onSubmit() {
+
+              let syncData = {
+                id: this.id,
+                syncTitle: this.syncTitle,
+                tm4jSourceProject: this.tm4jSourceProject,
+                gitTargetProject: this.gitTargetProject,
+                gitTargetRepository: this.gitTargetRepository,
+                autoSyncFlag: this.autoSyncFlag,
+                users: this.userList
+              };
+              postSyncData(syncData)
+                .then(response => {
+                  if (response.status === 201) {
+                    this.$router.push('mySync');
+                  }
+                }, response => {
+                  this.errorMsg = "Sync " + syncData.tm4jSourceProject + " to " + syncData.gitTargetProject + "/" + syncData.gitTargetRepository + " already exists!";
+                });
             },
         }
     }
