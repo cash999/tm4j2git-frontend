@@ -138,7 +138,7 @@
                   tm4jSourceProject: this.tm4jSourceProject,
                   gitTargetProject: this.gitTargetProject,
                   gitTargetRepository: this.gitTargetRepository,
-                  autoSyncFlag: this.autoSyncFlag
+                  autoSyncFlag: Boolean(this.autoSyncFlag)
               };
               postSyncData(syncData)
                 .then(response => {

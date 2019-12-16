@@ -89,7 +89,7 @@
             if (response.status === 200) {
               this.getMySyncs = response.data.autoSyncData;
               this.getMySyncs.forEach(function (sync) {
-                if (!Boolean(sync.data.find(autoSyncFlag => autoSyncFlag.autoSyncFlag))) {
+                if (Boolean(sync.data.find(autoSyncFlag => autoSyncFlag.autoSyncFlag)) === false) {
                   sync.data.push({status: 'disabled', conError: [{type: ''}]});
                 } else {
                   let conError = false;
@@ -133,12 +133,12 @@
           gitTargetRepository: mySync.data.find(obj => obj.gitTargetRepository).gitTargetRepository,
           autoSyncFlag: false
         };
-        mySync.data[mySync.data.findIndex(obj => obj.autoSyncFlag)].autoSyncFlag = false;
+        mySync.data[mySync.data.findIndex(obj => obj.autoSyncFlag === true)].autoSyncFlag = false;
         mySync.data[mySync.data.findIndex(obj => obj.status)].status = "disabled";
         postSyncData(syncData);
       },
 
-      _enableLink(mySync) {
+      _enableLink(mySync)  {
         let syncData = {
           id: mySync._id,
           syncName: mySync.syncName,
@@ -149,11 +149,7 @@
           gitTargetRepository: mySync.data.find(obj => obj.gitTargetRepository).gitTargetRepository,
           autoSyncFlag: true
         };
-        console.log(mySync.data.findIndex(obj => obj.autoSyncFlag));
-        console.log(mySync.data.findIndex(obj => obj.syncTitle));
-        console.log(JSON.stringify(mySync.data));
-        mySync.data[4].autoSyncFlag = true;
-        //mySync.data[mySync.data.findIndex(obj => obj.autoSyncFlag)].autoSyncFlag = true;
+        mySync.data[mySync.data.findIndex(obj => obj.autoSyncFlag === false)].autoSyncFlag = true;
         mySync.data[mySync.data.findIndex(obj => obj.status)].status = "pass";
         postSyncData(syncData);
       },
