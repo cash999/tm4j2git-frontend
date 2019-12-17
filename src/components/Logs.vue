@@ -65,8 +65,6 @@
       }
     },
     created() {
-      // fetch the data when the view is created and the data is
-      // already being observed
       this._isAdmin();
       this._getSyncs();
     },
@@ -74,11 +72,7 @@
       _isAdmin () {
         let userData = JSON.parse(localStorage.getItem('userData'));
         if (userData !== null) {
-          if (userData.isAdmin) {
-            this.isAdministrator = true;
-          } else {
-            this.isAdministrator = false;
-          }
+          this.isAdministrator = !!userData.isAdmin;
         } else {
           this.isAdministrator = false;
         }

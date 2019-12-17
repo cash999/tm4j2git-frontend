@@ -55,10 +55,9 @@ export function postSyncData(syncData) {
 }
 
 
-export function postRemoveSync(id) {
-  console.log(id)
+export function postRemoveSync(syncData) {
   return axios.post('/sync/postRemoveSync',
-    id,
+    syncData,
     {
       headers: authHeader(),
     })

@@ -1,8 +1,9 @@
 <template>
     <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1">
-              <h1>TM4J2GIT - Synchronizer</h1>
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1" >
+            <img src='./assets/swisscom.png' height="7%" width="7%" align="right" alt="swisscom"/>
+            <h1>TM4J2GIT - Synchronizer</h1>
               <hr>
               <appHeader></appHeader>
               <hr>

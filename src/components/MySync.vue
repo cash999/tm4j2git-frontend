@@ -19,7 +19,7 @@
               <td>
                 <button type="button"
                         class="btn btn-default btn-sm"
-                        style="border:none;outline:none">
+                        style="border:none;outline:none;background-color:transparent">
                   <span v-if= "mysync.data.find(obj => obj.status).status === 'pass'"
                         class="glyphicon glyphicon-ok-sign"
                         style="color:green;font-size:1.7vw"
@@ -41,8 +41,34 @@
               <td>{{mysync.data.find(obj => obj.tm4jSource).tm4jSource}}</td>
               <td>{{mysync.data.find(obj => obj.gitTargetProject).gitTargetProject}}</td>
               <td>{{mysync.data.find(obj => obj.gitTargetRepository).gitTargetRepository}}</td>
-              <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs"  @click="_editSync(mysync)" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil" style="font-size:1.2vw"></span></button></p></td>
-              <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" @click="_removeSync(index, mysync._id)" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash" style="font-size:1.2vw"></span></button></p></td>
+              <td>
+                <p data-placement="top"
+                   data-toggle="tooltip"
+                   title="Edit">
+                  <button class="btn btn-primary btn-xs"
+                          @click="_editSync(mysync)"
+                          data-title="Edit"
+                          data-toggle="modal"
+                          data-target="#edit">
+                    <span class="glyphicon glyphicon-pencil"
+                          style="font-size:1.2vw">
+                    </span>
+                  </button>
+                </p></td>
+              <td>
+                <p data-placement="top"
+                   data-toggle="tooltip"
+                   title="Delete">
+                  <button class="btn btn-danger btn-xs"
+                          @click="_removeSync(index, mysync)"
+                          data-title="Delete"
+                          data-toggle="modal"
+                          data-target="#delete">
+                    <span class="glyphicon glyphicon-trash"
+                          style="font-size:1.2vw">
+                    </span>
+                  </button>
+                </p></td>
               <hr>
             </tr>
             <hr>
@@ -55,8 +81,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import {authHeader} from '../authentication/auth-header';
   import {getTm4jConnectivityErrors, getGitConnectivityErrors, getMySync, postSyncData, postRemoveSync} from '../repository'
 
   export default {
@@ -68,8 +92,6 @@
       }
     },
     created() {
-      // fetch the data when the view is created and the data is
-      // already being observed
       this._getMySync();
     },
     methods: {
@@ -117,10 +139,15 @@
         this.$router.push({path: '/editSync', query: eMySync})
       },
 
-      _removeSync: function(index, _id) {
+      _removeSync: function(index, mySync) {
         this.mysyncs.splice(index, 1);
-        let id = {_id: _id};
-        postRemoveSync(id);
+        let syncData = {
+          id: mySync._id,
+          tm4jSourceProject: mySync.data.find(obj => obj.tm4jSource).tm4jSource,
+          gitTargetProject: mySync.data.find(obj => obj.gitTargetProject).gitTargetProject,
+          gitTargetRepository: mySync.data.find(obj => obj.gitTargetRepository).gitTargetRepository
+        };
+        postRemoveSync(syncData);
       },
       _disableLink(mySync) {
         let syncData = {

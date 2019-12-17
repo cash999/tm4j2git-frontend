@@ -144,9 +144,9 @@
                 .then(response => {
                   if (response.status === 201) {
                     this.$router.push('mySync');
+                  } else {
+                    alert("Sync " + syncData.tm4jSourceProject + " to " + syncData.gitTargetProject + "/" + syncData.gitTargetRepository + ' ' + response.data);
                   }
-                  }, response => {
-                  this.errorMsg = "Sync " + syncData.tm4jSourceProject + " to " + syncData.gitTargetProject + "/" + syncData.gitTargetRepository + " already exists!";
                 })
             }
         }

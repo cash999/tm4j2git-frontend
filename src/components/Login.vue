@@ -3,7 +3,7 @@
     <div class="form-group">
       <label for="user">Username</label>
       <input
-        type="user"
+        type="text"
         class="form-control"
         id="user"
         placeholder="Jira username"
@@ -67,8 +67,7 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error)
-                        // alert(error)
+                        alert(error)
                     })
             }
         },
