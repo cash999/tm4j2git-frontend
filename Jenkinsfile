@@ -16,7 +16,6 @@ pipeline {
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Dev'
                     sh 'cf push -f ./manifestDev.yml'
-
                 }
             }
         }
