@@ -1,0 +1,9 @@
+---
+applications:
+  - name: tm4j2gitFrontend
+    memory: 1024MB
+
+    host: tm4j2gitFrontend
+
+    env:
+      NODE_ENV: production
