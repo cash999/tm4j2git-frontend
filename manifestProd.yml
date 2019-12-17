@@ -1,0 +1,9 @@
+---
+applications:
+  - name: tm4j2Git
+    memory: 1024MB
+
+    host: tm4j2Git
+
+    env:
+      NODE_ENV: production
