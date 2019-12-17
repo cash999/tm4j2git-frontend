@@ -1,9 +1,7 @@
 ---
 applications:
-  - name: tm4j2GitXXX-dev
+  - name: tm4j2Git-dev
     memory: 1024MB
-
-    host: tm4j2GitXXX-dev
 
     env:
       NODE_ENV: production
