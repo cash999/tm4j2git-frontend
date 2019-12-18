@@ -12,8 +12,11 @@ synctractor.init();
 synctractor.monitorFetch();
 synctractor.monitorTimeout((_, t) => t !== 11000);
 
-//axios.defaults.baseURL ='http://localhost:3001';
-axios.defaults.baseURL = 'https://tm4j2gitbackend-dev.scapp-corp.swisscom.com:3001';
+if (window.location.hostname === 'localhost') {
+  axios.defaults.baseURL = 'http://localhost:3001';
+} else {
+  axios.defaults.baseURL = 'https://tm4j2gitbackend-dev.scapp-corp.swisscom.com:3001';
+}
 
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
