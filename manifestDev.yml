@@ -1,5 +1,6 @@
 ---
 applications:
+  -
   - name: tm4j2Git-dev
     memory: 1024MB
 
