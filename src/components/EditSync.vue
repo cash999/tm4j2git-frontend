@@ -121,7 +121,7 @@
                 syncId: '',
                 userList: [],
                 rUser:'',
-                aUser:'',
+                aUser:''
             }
         },
         //For input validation from npm module vuelidate
