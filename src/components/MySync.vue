@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h2>{{hostInfo}}</h2>
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
@@ -89,13 +88,11 @@
       return {
         mysync: '',
         mysyncs: [],
-        getMySyncs: [],
-        hostInfo: ''
+        getMySyncs: []
       }
     },
     created() {
       this._getMySync();
-      this.hostInfo = window.location.hostname
     },
     methods: {
       _getMySync() {
