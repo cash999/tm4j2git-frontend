@@ -42,7 +42,7 @@ pipeline {
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Prod'
                     sh 'npm install'
                     sh 'npm run build'
-                    sh 'cf push -f ./manifestProd.yml -b -b staticfile_buildpack'
+                    sh 'cf push -f ./manifestProd.yml -b staticfile_buildpack'
                 }
             }
         }
