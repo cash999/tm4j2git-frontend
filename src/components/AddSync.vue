@@ -14,12 +14,13 @@
       <label for="tm4jSourceProject">JIRA - project list</label>
       <select
         class="form-control"
+        size=1
         id="tm4jSourceProject"
         name="tm4jSourceProject"
         @input="$v.tm4jSourceProject.$touch()"
         v-model="tm4jSourceProject">
         <option value="">-- Select the JIRA project --</option>
-        <option v-for="tm4jProject in tm4jProjects">
+        <option v-for="tm4jProject in tm4jProjects" >
           {{ tm4jProject }}
         </option>
       </select>
@@ -30,12 +31,12 @@
         class="form-control"
         id="gitTargetProject"
         name="gitTargetProject"
+        size=1
         v-on:change="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetProject">
-        //v-on:focus="getGitProjects"
         <option value="">-- Select the GIT project --</option>
-        <option v-for="gitProject in gitProjects">
+        <option v-for="gitProject in gitProjects" >
           {{ gitProject }}
         </option>
       </select>
@@ -44,8 +45,9 @@
       <label for="gitTargetRepository">GIT repository list</label>
       <select
         class="form-control"
-        id="gitTargetRepository"
+          id="gitTargetRepository"
         name="gitTargetRepository"
+        size=10
         v-on:focus="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
@@ -68,7 +70,7 @@
     <br>
     <h3>{{errorMsg}}</h3>
     <br>
-    <button class="btn btn-primary" type=submit :disabled="$v.$invalid">Save</button>
+    <button class="btn btn-primary" type=submit id="addSyncSaveButton" :disabled="$v.$invalid">Save</button>
   </form>
 </template>
 
@@ -115,16 +117,20 @@
             _getTm4jProjects() {
                 getTm4jProjects()
                   .then(tm4jProjects => {
-                    this.tm4jProjects = tm4jProjects.data.tm4jProjects
+                    this.tm4jProjects = tm4jProjects.data.tm4jProjects;
+                    //console.log('tmjproject', this.tm4jProjects)
                   })
             },
             _getGitProjects() {
+              console.log('gitLog', this.gitTargetProject);
                 getGitProjects()
                   .then(gitProjects => {
-                    this.gitProjects = gitProjects.data.gitProjects
+                    this.gitProjects = gitProjects.data.gitProjects;
+                    //console.log('gitprojects' ,this.gitProjects)
                   })
             },
             _getGitRepos() {
+              console.log('gitLog', this.gitTargetProject);
                 getGitRepos(this.gitTargetProject)
                   .then(gitRepos => {
                     this.gitRepos = gitRepos.data.gitRepos

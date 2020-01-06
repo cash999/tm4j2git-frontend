@@ -5,7 +5,7 @@ const
     isCI = require('is-ci');
 
 exports.config = {
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://localhost:8080/login',
 
     chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 

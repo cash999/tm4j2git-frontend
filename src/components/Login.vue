@@ -23,7 +23,7 @@
 
       <small id="pwtext" class="form-text text-muted">We'll never share your password with anyone else.</small>
     </div>
-    <button class="btn btn-primary" type="submit" :disabled="$v.$invalid">Login</button>
+    <button class="btn btn-primary" type="submit" id="loginSubmitButton" :disabled="$v.$invalid">Login</button>
   </form>
 
 </template>
