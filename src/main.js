@@ -13,7 +13,7 @@ synctractor.monitorFetch();
 synctractor.monitorTimeout((_, t) => t !== 11000);
 
 if (window.location.hostname === 'localhost') {
-  axios.defaults.baseURL = 'http://localhost:3001';
+  axios.defaults.baseURL = 'http://localhost:3000';
 } else if (window.location.hostname === 'tm4j2git-dev.scapp-corp.swisscom.com') {
   axios.defaults.baseURL = 'https://tm4j2gitbackend-dev.scapp-corp.swisscom.com';
 } else if (window.location.hostname === 'tm4j2git.scapp-corp.swisscom.com') {
