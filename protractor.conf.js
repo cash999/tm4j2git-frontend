@@ -5,7 +5,8 @@ const
     isCI = require('is-ci');
 
 exports.config = {
-    baseUrl: 'http://localhost:8080/login',
+    // baseUrl: 'http://localhost:8080/login',
+    baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/login',
 
     chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
