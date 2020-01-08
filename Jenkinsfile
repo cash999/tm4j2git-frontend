@@ -23,6 +23,13 @@ pipeline {
                     sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
             }
+        stage('Cucumber test') {
+            steps {
+                catchError {
+                    echo 'Testing...'
+                        sh 'npm test'
+                }
+            }
         }
         stage('Deploy production') {
             when {
