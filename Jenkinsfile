@@ -23,6 +23,7 @@ pipeline {
                     sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
             }
+        }
         stage('Cucumber test') {
             steps {
                 catchError {
