@@ -5,10 +5,14 @@ const
     isCI = require('is-ci');
 
 exports.config = {
+    //config for local test
     // baseUrl: 'http://localhost:8080/login',
+    // chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+
+    //config for jenkins test
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
 
-    chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+    chromeDriver: './srv/chromedriver',
 
     SELENIUM_PROMISE_MANAGER: false,
 
