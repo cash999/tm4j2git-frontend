@@ -12,7 +12,7 @@ exports.config = {
     //config for jenkins test
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
 
-    chromeDriver: './srv/chromedriver',
+    chromeDriver: '/srv/chromedriver',
 
     SELENIUM_PROMISE_MANAGER: false,
 
