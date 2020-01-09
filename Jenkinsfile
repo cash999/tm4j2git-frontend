@@ -4,7 +4,7 @@ pipeline {
     agent { node { label 'selenium-slave' }
     }
     stages {
-        /*
+
         stage('Deploy development') {
             when {
             branch 'dev'
@@ -24,7 +24,7 @@ pipeline {
                 }
             }
         }
-        */
+
         stage('Cucumber test') {
             when {
                 branch 'dev'

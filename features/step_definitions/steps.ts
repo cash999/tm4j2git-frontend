@@ -12,8 +12,8 @@ const addSync = new AddSync;
 
 Given(/^(.*) decides to use TM4J2GIT Synchronizer$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    // Navigate.to('/login'),
-    Navigate.to('/'),
+    Navigate.to('/login'),
+    // Navigate.to('/'),
   );
 });
 
