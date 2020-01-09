@@ -6,7 +6,7 @@ const
 
 exports.config = {
     // baseUrl: 'http://localhost:8080/login',
-    baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/login',
+    baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
 
     chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 

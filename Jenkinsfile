@@ -1,15 +1,12 @@
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';")
 
 pipeline {
-    agent none
-
+    agent { node { label 'selenium-slave' }
+    }
     stages {
         stage('Deploy development') {
             when {
             branch 'dev'
-            }
-            agent {
-                label 'docker-slave'
             }
             tools {
               nodejs "node"
@@ -27,19 +24,19 @@ pipeline {
             }
         }
         stage('Cucumber test') {
+            when {
+                branch 'dev'
+            }
             steps {
                 catchError {
                     echo 'Testing...'
-                        sh 'npm test'
+                        sh 'npm run test'
                 }
             }
         }
         stage('Deploy production') {
             when {
             branch 'master'
-            }
-            agent {
-                label 'docker-slave'
             }
             tools {
                 nodejs "node"
