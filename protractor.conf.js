@@ -11,8 +11,8 @@ exports.config = {
 
     //config for jenkins test
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
-
     chromeDriver: '/srv/chromedriver',
+    //
 
     SELENIUM_PROMISE_MANAGER: false,
 
@@ -24,7 +24,7 @@ exports.config = {
     framework:      'custom',
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
-    specs: [ 'features/**/*.feature' ],
+    specs: [ 'features/**/login.feature' ],
 
     serenity: {
         runner: 'cucumber',

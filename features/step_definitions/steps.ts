@@ -12,13 +12,15 @@ const addSync = new AddSync;
 
 Given(/^(.*) decides to use TM4J2GIT Synchronizer$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    Navigate.to('/login'),
+    // Navigate.to('/login'),
+    Navigate.to('/'),
   );
 });
 
 When(/^(.*) enters user name and password$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    enterUserNameAndPassword
+    Navigate.to('/'),
+    // enterUserNameAndPassword
   )
 });
 
@@ -32,7 +34,8 @@ When(/^(.*) enters user name and password$/, function (this: WithStage, actorNam
 Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
-    Navigate.to('/logout')
+    Navigate.to('/'),
+    // Navigate.to('/logout')
   );
 });
 
