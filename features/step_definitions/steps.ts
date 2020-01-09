@@ -34,8 +34,8 @@ When(/^(.*) enters user name and password$/, function (this: WithStage, actorNam
 Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
-    Navigate.to('/'),
-    // Navigate.to('/logout')
+    // Navigate.to('/'),
+    Navigate.to('/logout')
   );
 });
 
