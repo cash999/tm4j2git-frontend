@@ -8,7 +8,7 @@ exports.config = {
     // baseUrl: 'http://localhost:8080/login',
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
 
-    chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+    chromeDriver: require(`chromedriver/lib/chromedrivr`).path,
 
     SELENIUM_PROMISE_MANAGER: false,
 

@@ -27,6 +27,9 @@ pipeline {
             when {
                 branch 'dev'
             }
+            tools {
+              nodejs "node"
+            }
             steps {
                 catchError {
                     echo 'Testing...'
