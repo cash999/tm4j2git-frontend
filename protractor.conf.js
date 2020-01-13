@@ -25,7 +25,7 @@ exports.config = {
 
     SELENIUM_PROMISE_MANAGER: false,
 
-    directConnect: true,
+    //directConnect: true,
 
     // https://github.com/angular/protractor/blob/master/docs/timeouts.md
     allScriptsTimeout: 110000,
