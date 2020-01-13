@@ -10,12 +10,12 @@ exports.config = {
     // chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
     //config remote selenium grid
-    //baseUrl: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
-    //chromeDriver: 'chrome',
+    baseUrl: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
+    chromeDriver: 'chrome',
 
     //config for jenkins test
-    baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
-    chromeDriver: '/srv/chromedriver',
+    //baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
+    //chromeDriver: '/srv/chromedriver',
     //
 
 
