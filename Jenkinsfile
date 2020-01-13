@@ -13,7 +13,7 @@ pipeline {
               nodejs "node"
             }
             steps {
-                echo 'Deploying....'
+                echo 'Build....'
                 withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                     sh 'cf api https://api.scapp-console.swisscom.com'
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
@@ -24,7 +24,6 @@ pipeline {
                 }
             }
         }
-
         stage('Cucumber test') {
             when {
                 branch 'dev'
