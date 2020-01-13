@@ -4,7 +4,7 @@ pipeline {
     agent { node { label 'selenium-slave' }
     }
     stages {
-
+/*
         stage('Deploy development') {
             when {
             branch 'dev'
@@ -12,7 +12,7 @@ pipeline {
             tools {
               nodejs "node"
             }
-            /*
+
             steps {
                 echo 'Build....'
                 withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
@@ -24,8 +24,9 @@ pipeline {
                     sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
             }
-            */
+
         }
+           */
         stage('Cucumber test') {
             when {
                 branch 'dev'
