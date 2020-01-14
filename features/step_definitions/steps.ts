@@ -32,7 +32,7 @@ Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, ac
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
     //Navigate.to('/'),
-    Navigate.to('/logout')
+    //Navigate.to('/logout')
   );
 });
 /*
