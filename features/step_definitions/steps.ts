@@ -32,10 +32,10 @@ Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, ac
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
     //Navigate.to('/'),
-    //Navigate.to('/logout')
+    Navigate.to('/logout')
   );
 });
-/*
+
 Given(/^(.*) is logged into the application$/, function async(this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Navigate.to('/login'),
@@ -56,4 +56,3 @@ When(/^(.*) enter a new Sync$/, function (this: WithStage, actorName: string) {
     addSync
   )
 });
-*/
