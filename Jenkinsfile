@@ -11,7 +11,6 @@ pipeline {
             tools {
               nodejs "node"
             }
-
             steps {
                 echo 'Build....'
                 withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
@@ -19,7 +18,7 @@ pipeline {
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Dev'
                     sh 'npm install'
-                    sh 'cp serenity-cli-2.2.9-all.jar ./node_modules/@serenity-js/cache'
+                    sh 'cp serenity-cli-2.1.9-all.jar node_modules/@serenity-js/cache'
                     sh 'npm run build'
                     sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
@@ -37,6 +36,19 @@ pipeline {
                     echo 'Testing...'
                         sh 'npm run test'
                 }
+            }
+        }
+        stage('Publish Serenity Reports') {
+            steps {
+                echo 'Publish Serenity Reports...'
+                publishHTML(target: [
+                    reportName : 'Serenity',
+                    reportDir:   'target/site/serenity',
+                    reportFiles: 'index.html',
+                    keepAll:     true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: false
+                ])
             }
         }
         stage('Deploy production') {
