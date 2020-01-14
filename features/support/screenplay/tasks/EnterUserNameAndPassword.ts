@@ -4,7 +4,6 @@ import {Browser, Click, Enter, Navigate, Wait} from '@serenity-js/protractor';
 import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
-
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
     return actor.attemptsTo(

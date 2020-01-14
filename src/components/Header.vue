@@ -4,7 +4,7 @@
         <router-link to="/" active-class="active" exact><a>Home</a></router-link>
       </li>
       <li v-if="!isAuth">
-        <router-link to="/login" active-class="active"><a>Login</a></router-link>
+        <router-link to="/login#" active-class="active"><a>Login</a></router-link>
       </li>
       <li v-if="isAuth">
         <router-link to="/addSync" active-class="active"><a>Add sync</a></router-link>

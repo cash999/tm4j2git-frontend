@@ -8,7 +8,6 @@ import EditSync from './components/EditSync.vue';
 import Logs from './components/Logs.vue'
 // import Logout from './components/Logout.vue';
 
-
 export const routes = [
   { path: '', components: {
       default: Home,
