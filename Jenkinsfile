@@ -4,7 +4,6 @@ pipeline {
     agent { node { label 'selenium-slave' }
     }
     stages {
-/*
         stage('Deploy development') {
             when {
             branch 'dev'
@@ -20,13 +19,12 @@ pipeline {
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Dev'
                     sh 'npm install'
+                    sh 'cp serenity-cli-2.2.9-all.jar ./node_modules/@serenity-js/cache'
                     sh 'npm run build'
                     sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
             }
-
         }
-           */
         stage('Cucumber test') {
             when {
                 branch 'dev'
