@@ -7,7 +7,7 @@ const
 exports.config = {
     //config for local test
     //baseUrl: 'http://localhost:8080/login',
-    //chromeDriver: require(`chromedriver/lib/chromedriver`).path
+    //chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
     //config remote selenium grid
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
