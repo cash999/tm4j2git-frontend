@@ -27,10 +27,10 @@
       </p>
     </div>
     <div>
-      <label for="addAdministratorw">Add a new administrator by account:</label>
+      <label for="addAdministrator">Add a new administrator by account:</label>
       <input
         class="form-control"
-        id="addAdministratorw"
+        id="addAdministrator"
         v-model="addAdministrator">
     </div>
     <div>

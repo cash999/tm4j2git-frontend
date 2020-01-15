@@ -1,4 +1,4 @@
-import { Ensure } from '@serenity-js/assertions';
+import {contain, Ensure, includes} from '@serenity-js/assertions';
 import { WithStage,} from '@serenity-js/core';
 import { isPresent, Navigate } from '@serenity-js/protractor';
 import { Given, Then, When } from 'cucumber';
@@ -32,7 +32,7 @@ When(/^(.*) enters user name and password$/, function (this: WithStage, actorNam
 Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
-    Navigate.to('/logout')
+    //Navigate.to('/logout')
   );
 });
 
@@ -56,7 +56,3 @@ When(/^(.*) enter a new Sync$/, function (this: WithStage, actorName: string) {
     addSync
   )
 });
-
-
-
-

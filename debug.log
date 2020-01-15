@@ -1,3 +1,5 @@
 [0106/102925.706:ERROR:file_io_win.cc(161)] CreateFile C:\Users\tgdlima3\AppData\Local\Temp\scoped_dir28896_1102312015\Crashpad\settings.dat: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0106/102925.707:ERROR:file_io_win.cc(170)] CreateFile C:\Users\tgdlima3\AppData\Local\Temp\scoped_dir28896_1102312015\Crashpad\reports\ae0f75c2-eddf-4e2d-8c4a-85e1f51620f4.dmp: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0106/102925.707:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0108/153651.462:ERROR:process_reader_win.cc(151)] SuspendThread: Zugriff verweigert (0x5)
+[0108/153651.464:ERROR:exception_snapshot_win.cc(98)] thread ID 6100 not found in process
