@@ -14,7 +14,7 @@ exports.config = {
     seleniumAddress: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
 
 
-    //chromeDriver: 'chrome',
+    chromeDriver: 'chrome',
 
     //config for jenkins test
     //baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
