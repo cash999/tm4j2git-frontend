@@ -5,13 +5,13 @@ import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
 let loginPassword = null;
-import { exec } from 'child_process';
-exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
-  if (err) {
-    return;
-  }
-  loginPassword = stdout;
-});
+// import { exec } from 'child_process';
+// exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
+//   if (err) {
+//     return;
+//   }
+//   loginPassword = stdout;
+// });
 if(loginPassword === null) {loginPassword = 'asde-eriu-afhi-eiuu'}
 
 export class EnterUserNameAndPassword implements Task {
