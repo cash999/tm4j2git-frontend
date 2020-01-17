@@ -19,7 +19,6 @@ npm run build
 
 ``` bash
 # prepare passphrase for GoPass
-gopass agent
 gopass show ats/eazyBI/EazyBI_SA
 
 # run Test
