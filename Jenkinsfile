@@ -20,25 +20,25 @@ pipeline {
                     sh 'npm install'
                     sh 'cp serenity-cli-2.1.9-all.jar node_modules/@serenity-js/cache'
                     sh 'npm run build'
-                    //sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
+                    sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
             }
         }
 
-        stage('Cucumber test') {
-            when {
-                branch 'dev'
-            }
-            tools {
-              nodejs "node"
-            }
-            steps {
-                catchError {
-                    echo 'Testing...'
-                        sh 'npm run test'
-                }
-            }
-        }
+//        stage('Cucumber test') {
+//            when {
+//                branch 'dev'
+//            }
+//            tools {
+//              nodejs "node"
+//            }
+//            steps {
+//                catchError {
+//                    echo 'Testing...'
+//                        sh 'npm run test'
+//                }
+//            }
+//        }
 
 //        stage('Publish Serenity Reports') {
 //            steps {
