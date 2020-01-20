@@ -1,9 +1,10 @@
 ---
 applications:
-- name: tm4j2GitFrontend-dev
-  memory: 1024MB
+  - name: tm4j2GitFrontend-dev
+    memory: 1024MB
 
-  host: tm4j2git-dev
+    host: tm4j2git-dev
 
   env:
-    NODE_ENV: testx
+    NODE_ENV: 'testx'
+    EMAIL_USERNAME: 'noreply@anynines.com'

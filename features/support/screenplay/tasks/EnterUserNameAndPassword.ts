@@ -6,6 +6,7 @@ import Timeout = NodeJS.Timeout;
 
 console.log('var: ', process.env.NODE_ENV);
 console.log('var: ', process.env.USERNAME);
+console.log('var: ', process.env.EMAIL_USERNAME);
 
 let loginPassword;
 import { exec } from 'child_process';
