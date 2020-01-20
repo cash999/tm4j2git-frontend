@@ -5,7 +5,7 @@ import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
 //console.log('var: ', process.env.NODE_ENV);
-console.log('var: ', process.env.USER);
+console.log('var: ', process.env.TEST_USR);
 console.log('var: ', process.env.PW);
 console.log(browser.baseUrl);
 

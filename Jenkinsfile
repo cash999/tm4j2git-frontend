@@ -3,6 +3,10 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src 'sel
 pipeline {
     agent { node { label 'selenium-slave' }
     }
+    environment {
+      TEST_USR = credentials('iAPC-ATS')
+
+    }
     stages {
         stage('Deploy development') {
             when {
@@ -34,14 +38,8 @@ pipeline {
             }
             steps {
             withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
-             environment {
-                          USER = 'xxx'
-                          PW = 'YY'
-             }
                 catchError {
                     echo 'Testing...'
-
-
                         sh 'npm run test'
                     }
                 }
