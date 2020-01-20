@@ -36,6 +36,10 @@ pipeline {
                 catchError {
                     echo 'Testing...'
                     withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
+                        environment {
+                          USER = 'xxx'
+                          PW = 'YY'
+                        }
                         sh 'npm run test'
                     }
                 }

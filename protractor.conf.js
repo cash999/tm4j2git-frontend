@@ -6,12 +6,12 @@ const
 
 exports.config = {
     //config for local test
-    //baseUrl: 'http://localhost:8080/login',
-    //chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+    baseUrl: 'http://localhost:8080/login',
+    chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
     //config remote selenium grid
-    baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
-    seleniumAddress: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
+    //baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
+    //seleniumAddress: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
     //chromeDriver: 'chrome',
 
     //config for jenkins test
@@ -22,7 +22,7 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     //when using selenium Grid false is required,
-    directConnect: false,
+    directConnect: true,
 
     // https://github.com/angular/protractor/blob/master/docs/timeouts.md
     allScriptsTimeout: 110000,

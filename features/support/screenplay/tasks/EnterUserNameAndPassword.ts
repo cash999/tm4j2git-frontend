@@ -4,13 +4,14 @@ import {Browser, Click, Enter, Navigate, Wait} from '@serenity-js/protractor';
 import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
-console.log('var: ', process.env.NODE_ENV);
-console.log('var: ', process.env.USERNAME);
-console.log('var: ', process.env.EMAIL_USERNAME);
+//console.log('var: ', process.env.NODE_ENV);
+console.log('var: ', process.env.USER);
+console.log('var: ', process.env.PW);
+console.log(browser.baseUrl);
 
 let loginPassword;
 import { exec } from 'child_process';
-if(process.env.NODE_ENV === 'test') {
+if(browser.baseUr === 'http://localhost:8080/login') {
   exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
     if (err) {
       return;

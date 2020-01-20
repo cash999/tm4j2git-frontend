@@ -5,6 +5,5 @@ applications:
 
     host: tm4j2git-dev
 
-  env:
-    NODE_ENV: 'testx'
-    EMAIL_USERNAME: 'noreply@anynines.com'
+    env:
+      NODE_ENV: development
