@@ -21,13 +21,13 @@ if(browser.baseUr === 'http://localhost:8080/login') {
   });
 } else {
   let userSplit = process.env.TEST_USER.split(':');
-  loginUser = userSplit[0];
-  loginPassword = userSplit[1];
+  //loginUser = userSplit[0];
+  //loginPassword = userSplit[1];
   console.log('User from Jenkins');
-  console.log('user:', loginUser);
-  console.log('pw:', loginPassword);
-  //loginUser = 'EazyBI_SA';
-  //loginPassword = 'asde-eriu-afhi-eiuu';
+  //console.log('user:', loginUser);
+  //console.log('pw:', loginPassword);
+  loginUser = 'EazyBI_SA';
+  loginPassword = 'asde-eriu-afhi-eiuu';
 }
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
