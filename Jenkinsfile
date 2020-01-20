@@ -25,20 +25,22 @@ pipeline {
             }
         }
 
-//        stage('Cucumber test') {
-//            when {
-//                branch 'dev'
-//            }
-//            tools {
-//              nodejs "node"
-//            }
-//            steps {
-//                catchError {
-//                    echo 'Testing...'
-//                        sh 'npm run test'
-//                }
-//            }
-//        }
+        stage('Cucumber test') {
+            when {
+                branch 'dev'
+            }
+            tools {
+              nodejs "node"
+            }
+            steps {
+                catchError {
+                    echo 'Testing...'
+                    withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
+                        sh 'npm run test'
+                    }
+                }
+            }
+        }
 
 //        stage('Publish Serenity Reports') {
 //            steps {
