@@ -36,26 +36,26 @@ Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, ac
   );
 });
 
-Given(/^(.*) is logged into the application$/, function async(this: WithStage, actorName: string) {
-  return this.stage.theActorCalled(actorName).attemptsTo(
-    Navigate.to('/login'),
-    enterUserNameAndPassword,
-    Ensure.that(MySyncComponent.tableIsVisible, isPresent())
-  )
-});
-
-Given(/^(.*) is on the Add Sync page$/, function  (this: WithStage, actorName: string) {
-  return this.stage.theActorCalled(actorName).attemptsTo(
-    Navigate.to('/addSync'),
-    //Ensure.that(AddSyncComponent.selectGITProject, isPresent())
-  );
-});
-
-When(/^(.*) enter a new Sync$/, function (this: WithStage, actorName: string) {
-  return this.stage.theActorCalled(actorName).attemptsTo(
-    addSync
-  )
-});
+// Given(/^(.*) is logged into the application$/, function async(this: WithStage, actorName: string) {
+//   return this.stage.theActorCalled(actorName).attemptsTo(
+//     Navigate.to('/login'),
+//     enterUserNameAndPassword,
+//     Ensure.that(MySyncComponent.tableIsVisible, isPresent())
+//   )
+// });
+//
+// Given(/^(.*) is on the Add Sync page$/, function  (this: WithStage, actorName: string) {
+//   return this.stage.theActorCalled(actorName).attemptsTo(
+//     Navigate.to('/addSync'),
+//     //Ensure.that(AddSyncComponent.selectGITProject, isPresent())
+//   );
+// });
+//
+// When(/^(.*) enter a new Sync$/, function (this: WithStage, actorName: string) {
+//   return this.stage.theActorCalled(actorName).attemptsTo(
+//     addSync
+//   )
+// });
 
 
 

@@ -37,13 +37,11 @@ pipeline {
               nodejs "node"
             }
             steps {
-            //withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                 catchError {
                     echo 'Testing...'
                         sh 'npm run test'
                     }
                 }
-            //}
         }
 
 //        stage('Publish Serenity Reports') {

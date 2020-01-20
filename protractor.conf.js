@@ -32,7 +32,7 @@ exports.config = {
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
     //specs: [ 'features/**/*.feature' ],
-    specs: [ 'features/*.feature' ],
+    specs: [ 'features/login.feature' ],
 
     serenity: {
         runner: 'cucumber',
