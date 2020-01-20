@@ -7,7 +7,7 @@ import Timeout = NodeJS.Timeout;
 let loginPassword;
 let loginUser;
 import { exec } from 'child_process';
-if(browser.baseUr === 'http://localhost:8080/login') {
+if(browser.baseUrl === 'http://localhost:8080/login') {
   exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
     if (err) {
       return;
@@ -16,6 +16,7 @@ if(browser.baseUr === 'http://localhost:8080/login') {
     loginPassword = stdout;
   });
 } else {
+  console.log('from Jenkins');
   let userSplit = process.env.TEST_USER.split(':');
   loginUser = userSplit[0];
   loginPassword = userSplit[1];
