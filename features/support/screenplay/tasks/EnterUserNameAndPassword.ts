@@ -4,10 +4,6 @@ import {Browser, Click, Enter, Navigate, Wait} from '@serenity-js/protractor';
 import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
-//console.log('var: ', process.env.NODE_ENV);
-console.log('var: ', process.env.TEST_USER);
-console.log(browser.baseUrl);
-
 let loginPassword;
 let loginUser;
 import { exec } from 'child_process';
@@ -21,15 +17,8 @@ if(browser.baseUr === 'http://localhost:8080/login') {
   });
 } else {
   let userSplit = process.env.TEST_USER.split(':');
-  console.log('User from Jenkins');
   loginUser = userSplit[0];
   loginPassword = userSplit[1];
-  //loginUser = 'EazyBI_SA';
-  //loginPassword = 'asde-eriu-afhi-eiuu';
-
-  console.log('user:', loginUser);
-  console.log('pw:', loginPassword);
-
 }
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
