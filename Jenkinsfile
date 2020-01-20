@@ -4,7 +4,7 @@ pipeline {
     agent { node { label 'selenium-slave' }
     }
     environment {
-      TEST_USR = credentials('iAPC-ATS')
+      TEST_USER = credentials('iAPC-ATS')
 
     }
     stages {
