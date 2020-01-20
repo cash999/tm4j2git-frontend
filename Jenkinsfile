@@ -33,13 +33,15 @@ pipeline {
               nodejs "node"
             }
             steps {
-                catchError {
-                    echo 'Testing...'
-                    withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
-                        environment {
+            withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
+             environment {
                           USER = 'xxx'
                           PW = 'YY'
-                        }
+             }
+                catchError {
+                    echo 'Testing...'
+
+
                         sh 'npm run test'
                     }
                 }
