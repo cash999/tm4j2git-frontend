@@ -24,6 +24,8 @@ if(browser.baseUr === 'http://localhost:8080/login') {
   loginUser = userSplit[0];
   loginPassword = userSplit[1];
   console.log('User from Jenkins');
+  console.log('user:', loginUser);
+  console.log('pw:', loginPassword);
   //loginUser = 'EazyBI_SA';
   //loginPassword = 'asde-eriu-afhi-eiuu';
 }
