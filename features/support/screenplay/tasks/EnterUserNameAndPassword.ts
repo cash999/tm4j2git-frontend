@@ -4,16 +4,21 @@ import {Browser, Click, Enter, Navigate, Wait} from '@serenity-js/protractor';
 import {browser, protractor} from "protractor";
 import Timeout = NodeJS.Timeout;
 
-let loginPassword = null;
-// import { exec } from 'child_process';
-// exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
-//   if (err) {
-//     return;
-//   }
-//   loginPassword = stdout;
-// });
-if(loginPassword === null) {loginPassword = 'asde-eriu-afhi-eiuu'}
+console.log('var: ', process.env.NODE_ENV);
+console.log('var: ', process.env.USERNAME);
 
+let loginPassword;
+import { exec } from 'child_process';
+if(process.env.NODE_ENV === 'test') {
+  exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
+    if (err) {
+      return;
+    }
+    loginPassword = stdout;
+  });
+} else {
+  loginPassword = 'asde-eriu-afhi-eiuu';
+}
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
     return actor.attemptsTo(
