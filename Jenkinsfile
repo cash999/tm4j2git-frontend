@@ -44,19 +44,19 @@ pipeline {
                 }
         }
 
-//        stage('Publish Serenity Reports') {
-//            steps {
-//                echo 'Publish Serenity Reports...'
-//                publishHTML(target: [
-//                    reportName : 'Serenity',
-//                    reportDir:   'target/site/serenity',
-//                    reportFiles: 'index.html',
-//                    keepAll:     true,
-//                    alwaysLinkToLastBuild: true,
-//                    allowMissing: false
-//                ])
-//            }
-//        }
+        stage('Publish Serenity Reports') {
+            steps {
+                echo 'Publish Serenity Reports...'
+                publishHTML(target: [
+                    reportName : 'Serenity',
+                    reportDir:   'target/site/serenity',
+                    reportFiles: 'index.html',
+                    keepAll:     true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: false
+                ])
+            }
+        }
         stage('Deploy production') {
             when {
             branch 'master'

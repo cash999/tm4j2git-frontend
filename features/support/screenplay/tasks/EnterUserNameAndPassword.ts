@@ -24,8 +24,8 @@ if(browser.baseUr === 'http://localhost:8080/login') {
   //loginUser = userSplit[0];
   //loginPassword = userSplit[1];
   console.log('User from Jenkins');
-  loginUser = 'EazyBI_SA';
-  loginPassword = 'asde-eriu-afhi-eiuu';
+  //loginUser = 'EazyBI_SA';
+  //loginPassword = 'asde-eriu-afhi-eiuu';
 }
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
