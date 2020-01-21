@@ -12,10 +12,8 @@ if(browser.baseUrl === 'http://localhost:8080/login') {
     if (err) {
       return;
     }
-    // loginUser = 'EazyBI_SA';
-    // loginPassword = stdout;
-    loginUser = 'tgdbamaw';
-    loginPassword = 'Yedaki84';
+    loginUser = 'EazyBI_SA';
+    loginPassword = stdout;
   });
 } else {
   console.log('from Jenkins');
