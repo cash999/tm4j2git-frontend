@@ -8,10 +8,10 @@
     "postinstall": "serenity-bdd update",
     "clean": "rimraf target",
     "test": "npm-run-all clean test:execute test:report",
-    "test:local": "protractor protractor_local.conf.js",
     "test:execute": "protractor ./protractor.conf.js",
     "test:execute:wip": "protractor ./protractor.conf.js --cucumberOpts.tags=@wip",
     "test:report": "serenity-bdd run --features ./features",
+    "test:local": "protractor protractor_local.conf.js",
     "wip": "npm-run-all clean test:execute:wip test:report"
   },
   "dependencies": {
