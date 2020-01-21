@@ -6,11 +6,10 @@ pipeline {
     environment {
       TEST_USER = credentials('EazyBI_SA')
     }
-    try {
     stages {
         stage('Deploy development') {
             when {
-            branch 'dev'
+              branch 'dev'
             }
             tools {
               nodejs "node"
@@ -36,12 +35,17 @@ pipeline {
             tools {
               nodejs "node"
             }
+            try {
             steps {
-                catchError {
+                //catchError {
                     echo 'Testing...'
                          sh 'npm run test'
-                    }
+                    //}
                 }
+             } catch (err) {
+                echo "Caught: ${err}"
+                currentBuild.result = 'FAILURE'
+             }
         }
 
         stage('Publish Serenity Reports') {
@@ -77,8 +81,4 @@ pipeline {
             }
         }
     }
- } catch(all) {
-
-    }
-
 }
