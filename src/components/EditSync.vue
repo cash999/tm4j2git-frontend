@@ -199,6 +199,7 @@
                 })
             },
             _onSubmit() {
+
               let syncData = {
                 id: this.id,
                 syncTitle: this.syncTitle,
