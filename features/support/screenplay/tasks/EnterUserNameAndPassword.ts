@@ -12,8 +12,10 @@ if(browser.baseUrl === 'http://localhost:8080/login') {
     if (err) {
       return;
     }
-    loginUser = 'EazyBI_SA';
-    loginPassword = stdout;
+    // loginUser = 'EazyBI_SA';
+    // loginPassword = stdout;
+    loginUser = 'tgdbamaw';
+    loginPassword = 'Yedaki84';
   });
 } else {
   console.log('from Jenkins');
@@ -21,6 +23,7 @@ if(browser.baseUrl === 'http://localhost:8080/login') {
   loginUser = userSplit[0];
   loginPassword = userSplit[1];
 }
+
 export class EnterUserNameAndPassword implements Task {
   performAs(actor: PerformsActivities) {
     return actor.attemptsTo(

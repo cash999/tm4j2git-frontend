@@ -27,8 +27,8 @@ exports.config = {
     framework:      'custom',
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
-    //specs: [ 'features/**/*.feature' ],
-    specs: [ 'features/*.feature' ],
+    specs: [ 'features/**/*.feature' ],
+    //specs: [ 'features/*.feature' ],
 
     serenity: {
         runner: 'cucumber',
