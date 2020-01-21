@@ -9,7 +9,7 @@ exports.config = {
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
     seleniumAddress: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
 
-    chromeDriver: 'chrome',
+    //chromeDriver: 'chrome',
 
     //config for jenkins test
     //baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
@@ -73,7 +73,7 @@ exports.config = {
                 '--log-level=3',
                 '--disable-gpu',
                 '--window-size=1920,1080',
-            ].concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
+            ]//.concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
         }
     }
 };
