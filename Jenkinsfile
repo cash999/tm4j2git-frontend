@@ -35,17 +35,12 @@ pipeline {
             tools {
               nodejs "node"
             }
-            try {
             steps {
-                //catchError {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     echo 'Testing...'
                          sh 'npm run test'
-                    //}
+                    }
                 }
-             } catch (err) {
-                echo "Caught: ${err}"
-                currentBuild.result = 'FAILURE'
-             }
         }
 
         stage('Publish Serenity Reports') {
