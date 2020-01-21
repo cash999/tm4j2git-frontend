@@ -27,11 +27,11 @@ export class EnterUserNameAndPassword implements Task {
     return actor.attemptsTo(
       Task.where(`#actor enters a valid user name`,
         //Enter.theValue('enter your username in code before run test').into(LoginComponent.userName),
-        Enter.theValue(loginUser).into(LoginComponent.userName),
+        Enter.theValue('EazyBI_SA').into(LoginComponent.userName),
       ),
       Task.where(`#actor enters a valid password`,
         // Enter.theValue('enter your password').into(LoginComponent.password),
-        Enter.theValue(loginPassword).into(LoginComponent.password),
+        Enter.theValue('asde-eriu-afhi-eiuu').into(LoginComponent.password),
       ),
       Task.where(`#actor click login button`,
         Click.on(LoginComponent.loginButton)
