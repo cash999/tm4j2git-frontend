@@ -8,7 +8,7 @@
         size=3
         v-model="setAdministrator">
         <option v-for="administrator in administrators">
-          {{administrator.adminUser }}
+          {{ administrator.adminUser }}
         </option>
       </select>
     </div>
@@ -17,7 +17,6 @@
          data-toggle="tooltip"
          title="Remove Admin User">
           <button v-on:click="_removeAdminUser"
-                  id="removeAdmin"
                   type="submit"
                   formaction="removeAdmin"
                   class="btn btn-primary btn-xs"
@@ -28,10 +27,10 @@
       </p>
     </div>
     <div>
-      <label for="addAdministrator">Add a new administrator by account:</label>
+      <label for="addAdministratorw">Add a new administrator by account:</label>
       <input
         class="form-control"
-        id="addAdministrator"
+        id="addAdministratorw"
         v-model="addAdministrator">
     </div>
     <div>
@@ -39,7 +38,6 @@
          data-toggle="tooltip"
          title="Add Admin User">
         <button v-on:click="_addAdminUser"
-                id="addAdmin"
                 type="submit"
                 formaction="addAdmin"
                 class="btn btn-primary btn-xs"

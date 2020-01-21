@@ -50,7 +50,7 @@
 </template>
 
 <script>
-  import {getSyncs, getSyncLog, getErrorLog, getIsAdmin} from '../repository';
+  import {getSyncs, getSyncLog, getErrorLog} from '../repository';
 
   export default {
     data() {
@@ -65,12 +65,12 @@
       }
     },
     created() {
-      this._getIsAdmin();
+      this._isAdmin();
       this._getSyncs();
     },
     methods: {
-      _getIsAdmin () {
-        let userData = getIsAdmin();
+      _isAdmin () {
+        let userData = JSON.parse(localStorage.getItem('userData'));
         if (userData !== null) {
           this.isAdministrator = !!userData.isAdmin;
         } else {

@@ -3,13 +3,10 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src 'sel
 pipeline {
     agent { node { label 'selenium-slave' }
     }
-    environment {
-      TEST_USER = credentials('EazyBI_SA')
-    }
     stages {
         stage('Deploy development') {
             when {
-              branch 'dev'
+            branch 'dev'
             }
             tools {
               nodejs "node"
@@ -36,11 +33,11 @@ pipeline {
               nodejs "node"
             }
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError {
                     echo 'Testing...'
-                         sh 'npm run test'
-                    }
+                        sh 'npm run test'
                 }
+            }
         }
 
         stage('Publish Serenity Reports') {

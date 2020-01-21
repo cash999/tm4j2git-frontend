@@ -6,4 +6,4 @@ applications:
     host: tm4j2git-dev
 
     env:
-      NODE_ENV: development
+      NODE_ENV: production

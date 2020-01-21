@@ -5,16 +5,21 @@ const
     isCI = require('is-ci');
 
 exports.config = {
+    //config for local test
+    //baseUrl: 'http://localhost:8080/login',
+    //chromeDriver: require(`chromedriver/lib/chromedriver`).path
+
     //config remote selenium grid
     baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
     seleniumAddress: 'https://sgrid.scapp-corp.swisscom.com/wd/hub',
+
 
     //chromeDriver: 'chrome',
 
     //config for jenkins test
     //baseUrl: 'https://tm4j2git-dev.scapp-corp.swisscom.com/',
     //chromeDriver: '/srv/chromedriver',
-
+    //
 
     SELENIUM_PROMISE_MANAGER: false,
 
@@ -28,7 +33,6 @@ exports.config = {
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
     specs: [ 'features/**/*.feature' ],
-    //specs: [ 'features/*.feature' ],
 
     serenity: {
         runner: 'cucumber',
