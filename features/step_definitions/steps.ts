@@ -5,12 +5,12 @@ import { Given, Then, When } from 'cucumber';
 import { EnterUserNameAndPassword } from '../support/screenplay/tasks/EnterUserNameAndPassword';
 import { MySyncComponent } from "../support/screenplay/components/MySyncComponent";
 import {AddSync} from "../support/screenplay/tasks/AddSync";
-import {AddSyncComponent} from "../support/screenplay/components/AddSyncComponent";
-import {NavigateTo} from "../support/screenplay/tasks/NavigateTo";
+//import {AddSyncComponent} from "../support/screenplay/components/AddSyncComponent";
+//import {NavigateTo} from "../support/screenplay/tasks/NavigateTo";
 
 const enterUserNameAndPassword = new EnterUserNameAndPassword;
 const addSync = new AddSync;
-const navigateTo  = new NavigateTo;
+//const navigateTo  = new NavigateTo;
 
 Given(/^(.*) decides to use TM4J2GIT Synchronizer$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
@@ -20,7 +20,6 @@ Given(/^(.*) decides to use TM4J2GIT Synchronizer$/, function (this: WithStage, 
 
 When(/^(.*) enters user name and password$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    //Navigate.to('/'),
     enterUserNameAndPassword
   )
 });
