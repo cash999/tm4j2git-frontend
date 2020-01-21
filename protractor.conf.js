@@ -73,7 +73,7 @@ exports.config = {
                 '--log-level=3',
                 '--disable-gpu',
                 '--window-size=1920,1080',
-            ]//.concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
+            ].concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
         }
     }
 };
