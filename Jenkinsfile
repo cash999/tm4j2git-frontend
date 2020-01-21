@@ -5,8 +5,8 @@ pipeline {
     }
     environment {
       TEST_USER = credentials('EazyBI_SA')
-
     }
+    try {
     stages {
         stage('Deploy development') {
             when {
@@ -39,11 +39,7 @@ pipeline {
             steps {
                 catchError {
                     echo 'Testing...'
-                        try {
-                          sh 'npm run test'
-                         } catch (err) {
-                            echo "error"
-                         }
+                         sh 'npm run test'
                     }
                 }
         }
@@ -81,4 +77,8 @@ pipeline {
             }
         }
     }
+ catch(all) {
+
+    }
+
 }
