@@ -77,7 +77,7 @@ pipeline {
             }
         }
     }
- catch(all) {
+ } catch(all) {
 
     }
 
