@@ -32,7 +32,7 @@ Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, ac
   );
 });
 
-Given(/^(.*) is logged into the application$/, function (this: WithStage, actorName: string) {
+Given(/^(.*) is logged into the application$/, function async(this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Navigate.to('/login'),
     enterUserNameAndPassword,
