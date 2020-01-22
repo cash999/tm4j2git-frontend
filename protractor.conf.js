@@ -19,7 +19,7 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     //when using selenium Grid false is required,
-    directConnect: false,
+    directConnect: true,
 
     // https://github.com/angular/protractor/blob/master/docs/timeouts.md
     allScriptsTimeout: 110000,
@@ -33,9 +33,9 @@ exports.config = {
     serenity: {
         runner: 'cucumber',
         crew: [
-            // ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            // Photographer.whoWill(TakePhotosOfInteractions),     // or Photographer.whoWill(TakePhotosOfFailures),
-            // new SerenityBDDReporter(),
+            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+            //Photographer.whoWill(TakePhotosOfInteractions),     // or Photographer.whoWill(TakePhotosOfFailures),
+            new SerenityBDDReporter(),
         ]
     },
 
