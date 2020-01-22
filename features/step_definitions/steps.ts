@@ -15,30 +15,34 @@ const addSync = new AddSync;
 Given(/^(.*) decides to use TM4J2GIT Synchronizer$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Navigate.to('/login'),
-  );
+  )
 });
+
 
 When(/^(.*) enters user name and password$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    enterUserNameAndPassword
+    enterUserNameAndPassword,
   )
 });
+
 
 Then(/^(.*) should see the synchronisation task$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
     //Navigate.to('/'),
-    Navigate.to('/logout')
+    Navigate.to('/logout'),
   );
 });
+
 
 Given(/^(.*) is logged into the application$/, function async(this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
     Navigate.to('/login'),
     enterUserNameAndPassword,
-    Ensure.that(MySyncComponent.tableIsVisible, isPresent())
+    Ensure.that(MySyncComponent.tableIsVisible, isPresent()),
   )
 });
+
 
 Given(/^(.*) is on the Add Sync page$/, function  (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
@@ -47,9 +51,12 @@ Given(/^(.*) is on the Add Sync page$/, function  (this: WithStage, actorName: s
   );
 });
 
+
 When(/^(.*) enter a new Sync$/, function (this: WithStage, actorName: string) {
   return this.stage.theActorCalled(actorName).attemptsTo(
-    addSync
+    addSync,
   )
 });
+
+
 
