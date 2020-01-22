@@ -12,6 +12,7 @@
             <th>Git repository</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th v-if="isAdministrator">Manual Runner</th>
             </thead>
             <tbody>
             <tr v-for="(mysync, index) in mysyncs">
@@ -68,10 +69,25 @@
                           style="font-size:1.2vw">
                     </span>
                   </button>
-                </p></td>
-              <hr>
+                </p>
+              </td>
+              <td v-if="isAdministrator">
+                <p data-placement="top"
+                   data-toggle="tooltip"
+                   title="RunSync">
+                  <button class="btn btn-primary btn-xs"
+                          @click="_runSync(mysync)"
+                          data-title="RunSync"
+                          data-toggle="modal"
+                          data-target="#runSync">
+                    <span
+                      class="glyphicon glyphicon-refresh"
+                      style="font-size:1.2vw">
+                    </span>
+                  </button>
+                </p>
+              </td>
             </tr>
-            <hr>
             </tbody>
           </table>
         </div>
@@ -81,18 +97,29 @@
 </template>
 
 <script>
-  import {getTm4jConnectivityErrors, getGitConnectivityErrors, getMySync, postSyncData, postRemoveSync} from '../repository'
+  import {
+    getTm4jConnectivityErrors,
+    getGitConnectivityErrors,
+    getMySync,
+    postSyncData,
+    postRemoveSync,
+    getIsAdmin,
+    getRunSync
+  } from '../repository'
 
   export default {
     data() {
       return {
         mysync: '',
         mysyncs: [],
-        getMySyncs: []
+        getMySyncs: [],
+        isAdministrator: false
       }
     },
     created() {
       this._getMySync();
+      this._getIsAdmin();
+      this._getIsEnabled();
     },
     methods: {
       _getMySync() {
@@ -119,7 +146,7 @@
                   let gitProject = (sync.data.find(obj => obj.gitTargetProject).gitTargetProject);
                   let gitRepo = (sync.data.find(obj => obj.gitTargetRepository).gitTargetRepository);
                   if (tm4jConErrors.length > 0 && tm4jConErrors.find(obj => obj.name).name === tm4jProject) {
-                    conError = true;
+                    conError = false;
                     sync.data.push({status: 'fail', conError: [{type: 'tm4j'}]});
                   }
                   if (gitConErrors.length > 0 && gitConErrors.find(obj => obj.name).name === gitProject + "/" + gitRepo) {
@@ -135,6 +162,10 @@
             }
           })
       },
+      _runSync( eMySync ) {
+        getRunSync( eMySync );
+      },
+
       _editSync( eMySync ) {
         this.$router.push({path: '/editSync', query: eMySync})
       },
@@ -187,6 +218,14 @@
           errorMsg = errorMsg + 'Connection Error to ' + err.type + ' server' + "\n"
         });
         alert(errorMsg);
+      },
+      _getIsAdmin () {
+        let userData = getIsAdmin();
+        if (userData !== null) {
+          this.isAdministrator = !!userData.isAdmin;
+        } else {
+          this.isAdministrator = false;
+        }
       }
     }
   }

@@ -162,3 +162,19 @@ export function getErrorLog() {
       headers: authHeader()
     })
 }
+
+export function getIsAdmin() {
+  return JSON.parse(localStorage.getItem('userData'));
+}
+
+export function getRunSync( eMySync ) {
+  console.log('runSync',JSON.stringify( eMySync));
+  //{runsync: await JSON.stringify(runsync), ismanual: false}
+  return axios.post('/runmanualsync/run',
+     {
+       runsync: JSON.stringify(eMySync), ismanual: true
+    },
+    {
+      headers: authHeader()
+    })
+}

@@ -47,7 +47,7 @@
         class="form-control"
           id="gitTargetRepository"
         name="gitTargetRepository"
-        size=10
+        size=1
         v-on:focus="_getGitRepos"
         @input="$v.gitTargetProject.$touch()"
         v-model="gitTargetRepository">
