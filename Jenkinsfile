@@ -16,7 +16,6 @@ pipeline {
             }
             steps {
                 echo 'Build....'
-                cleanWs()
                 withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                     sh 'cf api https://api.scapp-console.swisscom.com'
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
