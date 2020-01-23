@@ -119,7 +119,6 @@
     created() {
       this._getMySync();
       this._getIsAdmin();
-      this._getIsEnabled();
     },
     methods: {
       _getMySync() {

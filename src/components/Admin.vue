@@ -280,7 +280,7 @@
           })
       },
       _removeAdminUser() {
-        this.administrators.splice( this.administrators.indexOf({adminUser: this.setAdministrator}), 1 )
+        this.administrators.splice(this.administrators.findIndex(admin => admin.adminUser === this.setAdministrator), 1 );
       },
       _addAdminUser() {
         this.administrators.push({adminUser: this.addAdministrator});
