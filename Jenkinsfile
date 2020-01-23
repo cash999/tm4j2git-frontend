@@ -2,11 +2,6 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src 'sel
 
 pipeline {
     agent { node { label 'selenium-slave' }
-    def checkFile = '/package-lock.json'
-    if (fileExists(checkFile)) {
-        sh 'rm package-lock.json'
-        sh 'rm -r node_modules'
-    }
     }
     environment {
       TEST_USER = credentials('SA-PF00-ATS')
