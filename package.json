@@ -11,16 +11,22 @@
     "test:execute": "protractor ./protractor.conf.js",
     "test:execute:wip": "protractor ./protractor.conf.js --cucumberOpts.tags=@wip",
     "test:report": "serenity-bdd run --features ./features",
-    "wip": "npm-run-all clean test:execute:wip test:report"
+    "wip": "npm-run-all clean test:execute:wip test:report",
+    "test:local": "npm-run-all clean test:execute:local test:report",
+    "test:execute:local": "protractor ./protractor_local.conf.js"
+  },
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.9.0"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^3.3.7",
+    "synctractor": "^0.2.0",
+    "typescript": "^2.4.2",
     "vue": "^2.6.10",
     "vue-router": "^2.0.1",
-    "vuelidate": "^0.7.4",
-    "synctractor": "^0.2.0",
-    "typescript": "^3.7.3"
+    "vuelidate": "^0.7.4"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -33,6 +39,7 @@
     "webpack": "2.1.0-beta.25",
     "webpack-dev-server": "2.1.0-beta.0",
     "npm-run-all": "^4.1.5",
+    "@serenity-js/jasmine": "^2.0.1-alpha.109",
     "@serenity-js/assertions": "next",
     "@serenity-js/core": "next",
     "@serenity-js/cucumber": "next",
