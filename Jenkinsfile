@@ -16,14 +16,15 @@ pipeline {
             }
             steps {
                 echo 'Build....'
+                cleanWs()
                 withCredentials([usernamePassword(credentialsId: 'iAPC-ATS', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                     sh 'cf api https://api.scapp-console.swisscom.com'
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Dev'
-                    sh 'rm package-lock.json'
-                    sh 'rm -r node_modules'
+                    //sh 'rm package-lock.json'
+                    //sh 'rm -r node_modules'
                     sh 'npm install'
-                    sh 'cp serenity-cli-2.1.9-all.jar node_modules/@serenity-js/cache'
+                    //sh 'cp serenity-cli-2.1.9-all.jar node_modules/@serenity-js/cache'
                     sh 'npm run build'
                     //sh 'cf push -f ./manifestDev.yml -b staticfile_buildpack'
                 }
@@ -58,6 +59,7 @@ pipeline {
                 ])
             }
         }
+
         stage('Deploy production') {
             when {
             branch 'master'
@@ -73,7 +75,7 @@ pipeline {
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Prod'
                     sh 'npm install'
                     sh 'npm run build'
-                    sh 'cf push -f ./manifestProd.yml -b staticfile_buildpack'
+                    //sh 'cf push -f ./manifestProd.yml -b staticfile_buildpack'
                 }
             }
         }
