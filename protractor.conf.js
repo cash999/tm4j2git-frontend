@@ -64,16 +64,27 @@ exports.config = {
             browser: 'SEVERE' // "OFF", "SEVERE", "WARNING", "INFO", "CONFIG", "FINE", "FINER", "FINEST", "ALL".
         },
 
-        chromeOptions: {
-            args: [
-                '--no-sandbox',
-                '--disable-infobars',
-                '--disable-dev-shm-usage',
-                '--disable-extensions',
-                '--log-level=3',
-                '--disable-gpu',
-                '--window-size=1920,1080',
-            ].concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
-        }
+        // chromeOptions: {
+        //     args: [
+        //         '--no-sandbox',
+        //         '--disable-infobars',
+        //         '--disable-dev-shm-usage',
+        //         '--disable-extensions',
+        //         '--log-level=3',
+        //         '--disable-gpu',
+        //         '--window-size=1920,1080',
+        //     ].concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
+        // }
+      chromeOptions: {
+        args: [
+          '--no-sandbox',
+          '--disable-infobars',
+          '--disable-dev-shm-usage',
+          '--disable-extensions',
+          '--log-level=3',
+          '--disable-gpu',
+          '--window-size=1920,1080',
+        ]
+      }
     }
 };
