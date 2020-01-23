@@ -19,7 +19,7 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     //when using selenium Grid false is required,
-    directConnect: true,
+    directConnect: false,
 
     // https://github.com/angular/protractor/blob/master/docs/timeouts.md
     allScriptsTimeout: 110000,
