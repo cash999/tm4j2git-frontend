@@ -72,9 +72,12 @@ pipeline {
                     sh 'cf api https://api.scapp-console.swisscom.com'
                     sh 'cf auth iAPC-ATS $CF_PASSWORD'
                     sh 'cf target -o INI-DOS-FDN-ENB_BDD_Showcase -s Prod'
+                    sh 'rm package-lock.json'
+                    sh 'rm -r node_modules'
                     sh 'npm install'
+                    sh 'cp serenity-cli-2.1.9-all.jar node_modules/@serenity-js/cache'
                     sh 'npm run build'
-                    //sh 'cf push -f ./manifestProd.yml -b staticfile_buildpack'
+                    sh 'cf push -f ./manifestProd.yml -b staticfile_buildpack'
                 }
             }
         }

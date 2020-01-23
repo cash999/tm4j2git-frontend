@@ -2,11 +2,12 @@ import { LoginComponent } from '../components/LoginComponent';
 import {Task, PerformsActivities, Duration} from '@serenity-js/core';
 import {Browser, Click, Enter, Navigate, Wait} from '@serenity-js/protractor';
 import {browser, protractor} from "protractor";
+import { exec } from 'child_process';
 import Timeout = NodeJS.Timeout;
 
 let loginPassword;
 let loginUser;
-import { exec } from 'child_process';
+
 if(browser.baseUrl === 'http://localhost:8080/login') {
   exec('gopass show ats/TestServiceAccount/SA-PF00-ATS', (err, stdout,stderr) =>{
     if (err) {
