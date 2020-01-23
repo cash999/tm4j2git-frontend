@@ -8,11 +8,11 @@ let loginPassword;
 let loginUser;
 import { exec } from 'child_process';
 if(browser.baseUrl === 'http://localhost:8080/login') {
-  exec('gopass show ats/eazyBI/EazyBI_SA', (err, stdout,stderr) =>{
+  exec('gopass show ats/TestServiceAccount/SA-PF00-ATS', (err, stdout,stderr) =>{
     if (err) {
       return;
     }
-    loginUser = 'EazyBI_SA';
+    loginUser = 'SA-PF00-ATS';
     loginPassword = stdout;
   });
 } else {

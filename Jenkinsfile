@@ -4,7 +4,7 @@ pipeline {
     agent { node { label 'selenium-slave' }
     }
     environment {
-      TEST_USER = credentials('EazyBI_SA')
+      TEST_USER = credentials('SA-PF00-ATS')
     }
     stages {
         stage('Deploy development') {
